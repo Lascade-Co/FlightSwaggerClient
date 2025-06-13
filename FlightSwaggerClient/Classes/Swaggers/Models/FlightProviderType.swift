@@ -8,22 +8,21 @@
 import Foundation
 
 
-public class FlightProviderType: JSONEncodable {
-    public var isSplit: Bool?
+
+public struct FlightProviderType: Codable {
+
+    public var isSplit: Bool
     public var transferType: String?
-    public var price: Double?
-    public var splitProviders: [FlightSplitProvider]?
+    public var price: Double
+    public var splitProviders: [FlightSplitProvider]
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["isSplit"] = self.isSplit
-        nillableDictionary["transferType"] = self.transferType
-        nillableDictionary["price"] = self.price
-        nillableDictionary["splitProviders"] = self.splitProviders?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(isSplit: Bool, transferType: String?, price: Double, splitProviders: [FlightSplitProvider]) {
+        self.isSplit = isSplit
+        self.transferType = transferType
+        self.price = price
+        self.splitProviders = splitProviders
     }
+
+
 }
+

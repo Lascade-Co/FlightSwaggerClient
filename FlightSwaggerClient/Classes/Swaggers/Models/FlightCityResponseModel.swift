@@ -9,20 +9,19 @@ import Foundation
 
 
 /** City details */
-public class FlightCityResponseModel: JSONEncodable {
-    public var name: String?
-    public var latitude: Double?
-    public var longitude: Double?
 
-    public init() {}
+public struct FlightCityResponseModel: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["name"] = self.name
-        nillableDictionary["latitude"] = self.latitude
-        nillableDictionary["longitude"] = self.longitude
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var name: String
+    public var latitude: Double
+    public var longitude: Double
+
+    public init(name: String, latitude: Double, longitude: Double) {
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
     }
+
+
 }
+

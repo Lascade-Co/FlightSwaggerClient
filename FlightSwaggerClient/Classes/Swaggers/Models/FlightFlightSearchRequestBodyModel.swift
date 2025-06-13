@@ -8,26 +8,32 @@
 import Foundation
 
 
-public class FlightFlightSearchRequestBodyModel: JSONEncodable {
+
+public struct FlightFlightSearchRequestBodyModel: Codable {
+
     /** List of flight legs */
-    public var legs: [FlightLegType]?
+    public var legs: [FlightLegType]
     /** Cabin class like \&quot;economy\&quot;, \&quot;business\&quot; etc */
-    public var cabinClass: String?
+    public var cabinClass: String
     /** Number of adults */
-    public var adults: Int32?
+    public var adults: Int
     /** List of children ages */
-    public var childrenAges: [Int32]?
+    public var childrenAges: [Int]
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["legs"] = self.legs?.encodeToJSON()
-        nillableDictionary["cabin_class"] = self.cabinClass
-        nillableDictionary["adults"] = self.adults?.encodeToJSON()
-        nillableDictionary["children_ages"] = self.childrenAges?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(legs: [FlightLegType], cabinClass: String, adults: Int, childrenAges: [Int]) {
+        self.legs = legs
+        self.cabinClass = cabinClass
+        self.adults = adults
+        self.childrenAges = childrenAges
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case legs
+        case cabinClass = "cabin_class"
+        case adults
+        case childrenAges = "children_ages"
+    }
+
+
 }
+

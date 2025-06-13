@@ -8,18 +8,17 @@
 import Foundation
 
 
-public class FlightTimeRange: JSONEncodable {
-    public var min: Int32?
-    public var max: Int32?
 
-    public init() {}
+public struct FlightTimeRange: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["min"] = self.min?.encodeToJSON()
-        nillableDictionary["max"] = self.max?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var min: Int?
+    public var max: Int?
+
+    public init(min: Int?, max: Int?) {
+        self.min = min
+        self.max = max
     }
+
+
 }
+

@@ -8,20 +8,19 @@
 import Foundation
 
 
-public class FlightProviderFilterData: JSONEncodable {
-    public var code: String?
-    public var name: String?
-    public var image: String?
 
-    public init() {}
+public struct FlightProviderFilterData: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["code"] = self.code
-        nillableDictionary["name"] = self.name
-        nillableDictionary["image"] = self.image
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var code: String
+    public var name: String
+    public var image: String
+
+    public init(code: String, name: String, image: String) {
+        self.code = code
+        self.name = name
+        self.image = image
     }
+
+
 }
+

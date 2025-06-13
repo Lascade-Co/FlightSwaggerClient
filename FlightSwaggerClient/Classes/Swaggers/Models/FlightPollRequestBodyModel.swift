@@ -8,19 +8,21 @@
 import Foundation
 
 
-public class FlightPollRequestBodyModel: JSONEncodable {
-    public enum FlightSortBy: String { 
-        case Duration = "duration"
-        case Price = "price"
+
+public struct FlightPollRequestBodyModel: Codable {
+
+    public enum FlightSortBy: String, Codable { 
+        case duration = "duration"
+        case price = "price"
     }
-    public enum FlightSortOrder: String { 
-        case Asc = "asc"
-        case Desc = "desc"
+    public enum FlightSortOrder: String, Codable { 
+        case asc = "asc"
+        case desc = "desc"
     }
     /** Maximum duration of the flight in minutes */
-    public var durationMax: Int32?
+    public var durationMax: Int?
     /** Maximum stop count of the flight */
-    public var stopCountMax: Int32?
+    public var stopCountMax: Int?
     /** List of arrival/departure ranges */
     public var arrivalDepartureRanges: [FlightArrivalDeparture]?
     /** List of IATA codes to exclude */
@@ -40,23 +42,34 @@ public class FlightPollRequestBodyModel: JSONEncodable {
     /** Maximum price for filtering flights */
     public var priceMax: Double?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["duration_max"] = self.durationMax?.encodeToJSON()
-        nillableDictionary["stop_count_max"] = self.stopCountMax?.encodeToJSON()
-        nillableDictionary["arrival_departure_ranges"] = self.arrivalDepartureRanges?.encodeToJSON()
-        nillableDictionary["iata_codes_exclude"] = self.iataCodesExclude?.encodeToJSON()
-        nillableDictionary["iata_codes_include"] = self.iataCodesInclude?.encodeToJSON()
-        nillableDictionary["sort_by"] = self.sortBy?.rawValue
-        nillableDictionary["sort_order"] = self.sortOrder?.rawValue
-        nillableDictionary["agency_exclude"] = self.agencyExclude?.encodeToJSON()
-        nillableDictionary["agency_include"] = self.agencyInclude?.encodeToJSON()
-        nillableDictionary["price_min"] = self.priceMin
-        nillableDictionary["price_max"] = self.priceMax
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(durationMax: Int?, stopCountMax: Int?, arrivalDepartureRanges: [FlightArrivalDeparture]?, iataCodesExclude: [String]?, iataCodesInclude: [String]?, sortBy: FlightSortBy?, sortOrder: FlightSortOrder?, agencyExclude: [String]?, agencyInclude: [String]?, priceMin: Double?, priceMax: Double?) {
+        self.durationMax = durationMax
+        self.stopCountMax = stopCountMax
+        self.arrivalDepartureRanges = arrivalDepartureRanges
+        self.iataCodesExclude = iataCodesExclude
+        self.iataCodesInclude = iataCodesInclude
+        self.sortBy = sortBy
+        self.sortOrder = sortOrder
+        self.agencyExclude = agencyExclude
+        self.agencyInclude = agencyInclude
+        self.priceMin = priceMin
+        self.priceMax = priceMax
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case durationMax = "duration_max"
+        case stopCountMax = "stop_count_max"
+        case arrivalDepartureRanges = "arrival_departure_ranges"
+        case iataCodesExclude = "iata_codes_exclude"
+        case iataCodesInclude = "iata_codes_include"
+        case sortBy = "sort_by"
+        case sortOrder = "sort_order"
+        case agencyExclude = "agency_exclude"
+        case agencyInclude = "agency_include"
+        case priceMin = "price_min"
+        case priceMax = "price_max"
+    }
+
+
 }
+

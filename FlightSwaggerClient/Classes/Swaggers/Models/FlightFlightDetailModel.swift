@@ -9,20 +9,19 @@ import Foundation
 
 
 /** Details of the cheapest flight */
-public class FlightFlightDetailModel: JSONEncodable {
+
+public struct FlightFlightDetailModel: Codable {
+
     /** Price of the flight */
-    public var price: Double?
+    public var price: Double
     /** Duration of the flight in minutes */
-    public var duration: Int32?
+    public var duration: Int
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["price"] = self.price
-        nillableDictionary["duration"] = self.duration?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(price: Double, duration: Int) {
+        self.price = price
+        self.duration = duration
     }
+
+
 }
+

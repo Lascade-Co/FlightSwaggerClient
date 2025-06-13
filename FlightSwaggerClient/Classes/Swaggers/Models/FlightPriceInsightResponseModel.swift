@@ -8,21 +8,26 @@
 import Foundation
 
 
-public class FlightPriceInsightResponseModel: JSONEncodable {
-    public var priceStats: FlightPriceStatsModel?
+
+public struct FlightPriceInsightResponseModel: Codable {
+
+    public var priceStats: FlightPriceStatsModel
     /** List of price quotes for different dates */
-    public var results: [FlightPriceInsightQuoteModel]?
+    public var results: [FlightPriceInsightQuoteModel]
     public var currencyInfo: FlightCurrencyModelType?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["price_stats"] = self.priceStats?.encodeToJSON()
-        nillableDictionary["results"] = self.results?.encodeToJSON()
-        nillableDictionary["currency_info"] = self.currencyInfo?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(priceStats: FlightPriceStatsModel, results: [FlightPriceInsightQuoteModel], currencyInfo: FlightCurrencyModelType?) {
+        self.priceStats = priceStats
+        self.results = results
+        self.currencyInfo = currencyInfo
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case priceStats = "price_stats"
+        case results
+        case currencyInfo = "currency_info"
+    }
+
+
 }
+

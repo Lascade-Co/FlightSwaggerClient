@@ -8,26 +8,34 @@
 import Foundation
 
 
-public class FlightCountryApp: JSONEncodable {
+
+public struct FlightCountryApp: Codable {
+
     public var countryName: String?
     public var appName: String?
     public var deeplinkProviders: String?
     public var isPopupAdsEnabled: Bool?
-    public var apiResponseIndex: Int32?
-    public var focusTab: Int32?
+    public var apiResponseIndex: Int?
+    public var focusTab: Int?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["country_name"] = self.countryName
-        nillableDictionary["app_name"] = self.appName
-        nillableDictionary["deeplink_providers"] = self.deeplinkProviders
-        nillableDictionary["is_popup_ads_enabled"] = self.isPopupAdsEnabled
-        nillableDictionary["api_response_index"] = self.apiResponseIndex?.encodeToJSON()
-        nillableDictionary["focus_tab"] = self.focusTab?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(countryName: String?, appName: String?, deeplinkProviders: String?, isPopupAdsEnabled: Bool?, apiResponseIndex: Int?, focusTab: Int?) {
+        self.countryName = countryName
+        self.appName = appName
+        self.deeplinkProviders = deeplinkProviders
+        self.isPopupAdsEnabled = isPopupAdsEnabled
+        self.apiResponseIndex = apiResponseIndex
+        self.focusTab = focusTab
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case countryName = "country_name"
+        case appName = "app_name"
+        case deeplinkProviders = "deeplink_providers"
+        case isPopupAdsEnabled = "is_popup_ads_enabled"
+        case apiResponseIndex = "api_response_index"
+        case focusTab = "focus_tab"
+    }
+
+
 }
+

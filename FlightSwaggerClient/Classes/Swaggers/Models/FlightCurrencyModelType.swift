@@ -9,35 +9,44 @@ import Foundation
 
 
 /** Currency information for formatting prices */
-public class FlightCurrencyModelType: JSONEncodable {
+
+public struct FlightCurrencyModelType: Codable {
+
     /** Currency code */
-    public var code: String?
+    public var code: String
     /** Currency symbol */
-    public var symbol: String?
+    public var symbol: String
     /** Thousands separator */
-    public var thousandsSeparator: String?
+    public var thousandsSeparator: String
     /** Decimal separator */
-    public var decimalSeparator: String?
+    public var decimalSeparator: String
     /** Symbol on left */
-    public var symbolOnLeft: Bool?
+    public var symbolOnLeft: Bool
     /** Space between amount and symbol */
-    public var spaceBetweenAmountAndSymbol: Bool?
+    public var spaceBetweenAmountAndSymbol: Bool
     /** Decimal digits */
-    public var decimalDigits: Int32?
+    public var decimalDigits: Int
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["code"] = self.code
-        nillableDictionary["symbol"] = self.symbol
-        nillableDictionary["thousands_separator"] = self.thousandsSeparator
-        nillableDictionary["decimal_separator"] = self.decimalSeparator
-        nillableDictionary["symbol_on_left"] = self.symbolOnLeft
-        nillableDictionary["space_between_amount_and_symbol"] = self.spaceBetweenAmountAndSymbol
-        nillableDictionary["decimal_digits"] = self.decimalDigits?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(code: String, symbol: String, thousandsSeparator: String, decimalSeparator: String, symbolOnLeft: Bool, spaceBetweenAmountAndSymbol: Bool, decimalDigits: Int) {
+        self.code = code
+        self.symbol = symbol
+        self.thousandsSeparator = thousandsSeparator
+        self.decimalSeparator = decimalSeparator
+        self.symbolOnLeft = symbolOnLeft
+        self.spaceBetweenAmountAndSymbol = spaceBetweenAmountAndSymbol
+        self.decimalDigits = decimalDigits
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case code
+        case symbol
+        case thousandsSeparator = "thousands_separator"
+        case decimalSeparator = "decimal_separator"
+        case symbolOnLeft = "symbol_on_left"
+        case spaceBetweenAmountAndSymbol = "space_between_amount_and_symbol"
+        case decimalDigits = "decimal_digits"
+    }
+
+
 }
+

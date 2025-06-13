@@ -9,28 +9,37 @@ import Foundation
 
 
 /** Flight details */
-public class FlightFlightResponseModel: JSONEncodable {
-    public var price: Double?
-    public var priceFormatted: String?
-    public var airline: String?
-    public var airlineCode: String?
-    public var maxStops: Int32?
-    public var maxDuration: Int32?
-    public var shareUrl: String?
 
-    public init() {}
+public struct FlightFlightResponseModel: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["price"] = self.price
-        nillableDictionary["price_formatted"] = self.priceFormatted
-        nillableDictionary["airline"] = self.airline
-        nillableDictionary["airline_code"] = self.airlineCode
-        nillableDictionary["max_stops"] = self.maxStops?.encodeToJSON()
-        nillableDictionary["max_duration"] = self.maxDuration?.encodeToJSON()
-        nillableDictionary["share_url"] = self.shareUrl
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var price: Double
+    public var priceFormatted: String
+    public var airline: String
+    public var airlineCode: String
+    public var maxStops: Int
+    public var maxDuration: Int
+    public var shareUrl: String
+
+    public init(price: Double, priceFormatted: String, airline: String, airlineCode: String, maxStops: Int, maxDuration: Int, shareUrl: String) {
+        self.price = price
+        self.priceFormatted = priceFormatted
+        self.airline = airline
+        self.airlineCode = airlineCode
+        self.maxStops = maxStops
+        self.maxDuration = maxDuration
+        self.shareUrl = shareUrl
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case price
+        case priceFormatted = "price_formatted"
+        case airline
+        case airlineCode = "airline_code"
+        case maxStops = "max_stops"
+        case maxDuration = "max_duration"
+        case shareUrl = "share_url"
+    }
+
+
 }
+

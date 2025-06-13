@@ -9,23 +9,22 @@ import Foundation
 
 
 /** Airline details */
-public class FlightAirlineModel: JSONEncodable {
+
+public struct FlightAirlineModel: Codable {
+
     /** IATA code of the airline */
-    public var iata: String?
+    public var iata: String
     /** Name of the airline */
-    public var name: String?
+    public var name: String
     /** URL to the airline logo */
-    public var logo: String?
+    public var logo: String
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["iata"] = self.iata
-        nillableDictionary["name"] = self.name
-        nillableDictionary["logo"] = self.logo
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(iata: String, name: String, logo: String) {
+        self.iata = iata
+        self.name = name
+        self.logo = logo
     }
+
+
 }
+

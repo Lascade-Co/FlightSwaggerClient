@@ -8,30 +8,38 @@
 import Foundation
 
 
-public class FlightPriceInsightQuoteModel: JSONEncodable {
+
+public struct FlightPriceInsightQuoteModel: Codable {
+
     /** Date timestamp */
-    public var date: Int32?
+    public var date: Int
     /** Price in the requested currency */
-    public var price: Double?
+    public var price: Double
     /** Currency code */
-    public var currency: String?
-    public var outbound: FlightFlightLegModel?
+    public var currency: String
+    public var outbound: FlightFlightLegModel
     public var inbound: FlightFlightLegModel?
     /** Price category: cheap, normal, or expensive */
     public var priceCategory: String?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["date"] = self.date?.encodeToJSON()
-        nillableDictionary["price"] = self.price
-        nillableDictionary["currency"] = self.currency
-        nillableDictionary["outbound"] = self.outbound?.encodeToJSON()
-        nillableDictionary["inbound"] = self.inbound?.encodeToJSON()
-        nillableDictionary["price_category"] = self.priceCategory
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(date: Int, price: Double, currency: String, outbound: FlightFlightLegModel, inbound: FlightFlightLegModel?, priceCategory: String?) {
+        self.date = date
+        self.price = price
+        self.currency = currency
+        self.outbound = outbound
+        self.inbound = inbound
+        self.priceCategory = priceCategory
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case date
+        case price
+        case currency
+        case outbound
+        case inbound
+        case priceCategory = "price_category"
+    }
+
+
 }
+

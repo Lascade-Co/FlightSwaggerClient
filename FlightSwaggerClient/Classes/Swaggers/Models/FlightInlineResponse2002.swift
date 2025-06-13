@@ -8,22 +8,21 @@
 import Foundation
 
 
-public class FlightInlineResponse2002: JSONEncodable {
-    public var count: Int32?
+
+public struct FlightInlineResponse2002: Codable {
+
+    public var count: Int
     public var next: String?
     public var previous: String?
-    public var results: [FlightCountryApp]?
+    public var results: [FlightCountryApp]
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["count"] = self.count?.encodeToJSON()
-        nillableDictionary["next"] = self.next
-        nillableDictionary["previous"] = self.previous
-        nillableDictionary["results"] = self.results?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(count: Int, next: String?, previous: String?, results: [FlightCountryApp]) {
+        self.count = count
+        self.next = next
+        self.previous = previous
+        self.results = results
     }
+
+
 }
+

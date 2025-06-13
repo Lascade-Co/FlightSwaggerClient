@@ -9,23 +9,22 @@ import Foundation
 
 
 /** Origin airport details */
-public class FlightAirportModel: JSONEncodable {
+
+public struct FlightAirportModel: Codable {
+
     /** IATA code of the airport */
-    public var iata: String?
+    public var iata: String
     /** Name of the airport */
-    public var name: String?
+    public var name: String
     /** Country of the airport */
-    public var country: String?
+    public var country: String
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["iata"] = self.iata
-        nillableDictionary["name"] = self.name
-        nillableDictionary["country"] = self.country
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(iata: String, name: String, country: String) {
+        self.iata = iata
+        self.name = name
+        self.country = country
     }
+
+
 }
+

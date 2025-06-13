@@ -8,32 +8,31 @@
 import Foundation
 
 
-public class FlightLeg: JSONEncodable {
-    public var arriveTimeAirport: Int32?
-    public var departureTimeAirport: Int32?
-    public var duration: Int32?
-    public var origin: String?
-    public var originCode: String?
-    public var destination: String?
-    public var destinationCode: String?
-    public var stopCount: Int32?
-    public var segments: [FlightSegment]?
 
-    public init() {}
+public struct FlightLeg: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["arriveTimeAirport"] = self.arriveTimeAirport?.encodeToJSON()
-        nillableDictionary["departureTimeAirport"] = self.departureTimeAirport?.encodeToJSON()
-        nillableDictionary["duration"] = self.duration?.encodeToJSON()
-        nillableDictionary["origin"] = self.origin
-        nillableDictionary["originCode"] = self.originCode
-        nillableDictionary["destination"] = self.destination
-        nillableDictionary["destinationCode"] = self.destinationCode
-        nillableDictionary["stopCount"] = self.stopCount?.encodeToJSON()
-        nillableDictionary["segments"] = self.segments?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var arriveTimeAirport: Int
+    public var departureTimeAirport: Int
+    public var duration: Int
+    public var origin: String
+    public var originCode: String
+    public var destination: String
+    public var destinationCode: String
+    public var stopCount: Int
+    public var segments: [FlightSegment]
+
+    public init(arriveTimeAirport: Int, departureTimeAirport: Int, duration: Int, origin: String, originCode: String, destination: String, destinationCode: String, stopCount: Int, segments: [FlightSegment]) {
+        self.arriveTimeAirport = arriveTimeAirport
+        self.departureTimeAirport = departureTimeAirport
+        self.duration = duration
+        self.origin = origin
+        self.originCode = originCode
+        self.destination = destination
+        self.destinationCode = destinationCode
+        self.stopCount = stopCount
+        self.segments = segments
     }
+
+
 }
+

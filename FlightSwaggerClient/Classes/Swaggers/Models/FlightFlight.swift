@@ -8,32 +8,43 @@
 import Foundation
 
 
-public class FlightFlight: JSONEncodable {
-    public var id: String?
-    public var totalDuration: Int32?
-    public var minPrice: Double?
-    public var maxPrice: Double?
-    public var legs: [FlightLeg]?
-    public var providers: [FlightProviderType]?
+
+public struct FlightFlight: Codable {
+
+    public var _id: String
+    public var totalDuration: Int
+    public var minPrice: Double
+    public var maxPrice: Double
+    public var legs: [FlightLeg]
+    public var providers: [FlightProviderType]
     public var isBest: Bool?
     public var isCheapest: Bool?
     public var isFastest: Bool?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["id"] = self.id
-        nillableDictionary["total_duration"] = self.totalDuration?.encodeToJSON()
-        nillableDictionary["min_price"] = self.minPrice
-        nillableDictionary["max_price"] = self.maxPrice
-        nillableDictionary["legs"] = self.legs?.encodeToJSON()
-        nillableDictionary["providers"] = self.providers?.encodeToJSON()
-        nillableDictionary["is_best"] = self.isBest
-        nillableDictionary["is_cheapest"] = self.isCheapest
-        nillableDictionary["is_fastest"] = self.isFastest
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(_id: String, totalDuration: Int, minPrice: Double, maxPrice: Double, legs: [FlightLeg], providers: [FlightProviderType], isBest: Bool?, isCheapest: Bool?, isFastest: Bool?) {
+        self._id = _id
+        self.totalDuration = totalDuration
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
+        self.legs = legs
+        self.providers = providers
+        self.isBest = isBest
+        self.isCheapest = isCheapest
+        self.isFastest = isFastest
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case _id = "id"
+        case totalDuration = "total_duration"
+        case minPrice = "min_price"
+        case maxPrice = "max_price"
+        case legs
+        case providers
+        case isBest = "is_best"
+        case isCheapest = "is_cheapest"
+        case isFastest = "is_fastest"
+    }
+
+
 }
+

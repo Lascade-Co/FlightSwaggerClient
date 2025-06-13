@@ -8,37 +8,48 @@
 import Foundation
 
 
-public class FlightDestinationResponseModel: JSONEncodable {
-    public var airport: FlightAirportResponseModel?
-    public var city: FlightCityResponseModel?
+
+public struct FlightDestinationResponseModel: Codable {
+
+    public var airport: FlightAirportResponseModel
+    public var city: FlightCityResponseModel
     /** Departure date for exploration (YYYY-MM-DD) */
-    public var departureDate: String?
+    public var departureDate: String
     /** Return date for exploration (YYYY-MM-DD) */
-    public var returnDate: String?
-    public var flight: FlightFlightResponseModel?
+    public var returnDate: String
+    public var flight: FlightFlightResponseModel
     /** List of languages */
-    public var languages: [String]?
-    public var region: FlightRegionResponseModel?
+    public var languages: [String]
+    public var region: FlightRegionResponseModel
     /** Display name */
-    public var displayName: String?
+    public var displayName: String
     /** Number of days */
-    public var days: Int32?
+    public var days: Int
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["airport"] = self.airport?.encodeToJSON()
-        nillableDictionary["city"] = self.city?.encodeToJSON()
-        nillableDictionary["departure_date"] = self.departureDate
-        nillableDictionary["return_date"] = self.returnDate
-        nillableDictionary["flight"] = self.flight?.encodeToJSON()
-        nillableDictionary["languages"] = self.languages?.encodeToJSON()
-        nillableDictionary["region"] = self.region?.encodeToJSON()
-        nillableDictionary["display_name"] = self.displayName
-        nillableDictionary["days"] = self.days?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(airport: FlightAirportResponseModel, city: FlightCityResponseModel, departureDate: String, returnDate: String, flight: FlightFlightResponseModel, languages: [String], region: FlightRegionResponseModel, displayName: String, days: Int) {
+        self.airport = airport
+        self.city = city
+        self.departureDate = departureDate
+        self.returnDate = returnDate
+        self.flight = flight
+        self.languages = languages
+        self.region = region
+        self.displayName = displayName
+        self.days = days
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case airport
+        case city
+        case departureDate = "departure_date"
+        case returnDate = "return_date"
+        case flight
+        case languages
+        case region
+        case displayName = "display_name"
+        case days
+    }
+
+
 }
+

@@ -5,11 +5,12 @@
 // https://github.com/swagger-api/swagger-codegen
 //
 
+import Foundation
 import Alamofire
 
 
 
-public class AppAPI: APIBase {
+open class AppAPI {
     /**
 
      - parameter app: (query) app (optional)
@@ -17,9 +18,9 @@ public class AppAPI: APIBase {
      - parameter page: (query) A page number within the paginated result set. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func appSetupList(app app: String? = nil, country: String? = nil, page: Int32? = nil, completion: ((data: FlightInlineResponse2002?, error: ErrorType?) -> Void)) {
+    open class func appSetupList(app: String? = nil, country: String? = nil, page: Int? = nil, completion: @escaping ((_ data: FlightInlineResponse2002?,_ error: Error?) -> Void)) {
         appSetupListWithRequestBuilder(app: app, country: country, page: page).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -38,23 +39,21 @@ public class AppAPI: APIBase {
 
      - returns: RequestBuilder<FlightInlineResponse2002> 
      */
-    public class func appSetupListWithRequestBuilder(app app: String? = nil, country: String? = nil, page: Int32? = nil) -> RequestBuilder<FlightInlineResponse2002> {
+    open class func appSetupListWithRequestBuilder(app: String? = nil, country: String? = nil, page: Int? = nil) -> RequestBuilder<FlightInlineResponse2002> {
         let path = "/app/setup/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "app": app,
-            "country": country,
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "app": app, 
+            "country": country, 
             "page": page?.encodeToJSON()
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightInlineResponse2002>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
 }

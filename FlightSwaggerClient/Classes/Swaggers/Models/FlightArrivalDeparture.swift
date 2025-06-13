@@ -8,18 +8,17 @@
 import Foundation
 
 
-public class FlightArrivalDeparture: JSONEncodable {
+
+public struct FlightArrivalDeparture: Codable {
+
     public var arrival: FlightTimeRange?
     public var departure: FlightTimeRange?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["arrival"] = self.arrival?.encodeToJSON()
-        nillableDictionary["departure"] = self.departure?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(arrival: FlightTimeRange?, departure: FlightTimeRange?) {
+        self.arrival = arrival
+        self.departure = departure
     }
+
+
 }
+

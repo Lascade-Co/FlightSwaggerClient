@@ -8,28 +8,37 @@
 import Foundation
 
 
-public class FlightCurrency: JSONEncodable {
-    public var code: String?
-    public var symbol: String?
-    public var thousandsSeparator: String?
-    public var decimalSeparator: String?
-    public var symbolOnLeft: Bool?
-    public var spaceBetweenAmountAndSymbol: Bool?
-    public var decimalDigits: Int32?
 
-    public init() {}
+public struct FlightCurrency: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["code"] = self.code
-        nillableDictionary["symbol"] = self.symbol
-        nillableDictionary["thousands_separator"] = self.thousandsSeparator
-        nillableDictionary["decimal_separator"] = self.decimalSeparator
-        nillableDictionary["symbol_on_left"] = self.symbolOnLeft
-        nillableDictionary["space_between_amount_and_symbol"] = self.spaceBetweenAmountAndSymbol
-        nillableDictionary["decimal_digits"] = self.decimalDigits?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var code: String
+    public var symbol: String
+    public var thousandsSeparator: String
+    public var decimalSeparator: String
+    public var symbolOnLeft: Bool
+    public var spaceBetweenAmountAndSymbol: Bool
+    public var decimalDigits: Int
+
+    public init(code: String, symbol: String, thousandsSeparator: String, decimalSeparator: String, symbolOnLeft: Bool, spaceBetweenAmountAndSymbol: Bool, decimalDigits: Int) {
+        self.code = code
+        self.symbol = symbol
+        self.thousandsSeparator = thousandsSeparator
+        self.decimalSeparator = decimalSeparator
+        self.symbolOnLeft = symbolOnLeft
+        self.spaceBetweenAmountAndSymbol = spaceBetweenAmountAndSymbol
+        self.decimalDigits = decimalDigits
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case code
+        case symbol
+        case thousandsSeparator = "thousands_separator"
+        case decimalSeparator = "decimal_separator"
+        case symbolOnLeft = "symbol_on_left"
+        case spaceBetweenAmountAndSymbol = "space_between_amount_and_symbol"
+        case decimalDigits = "decimal_digits"
+    }
+
+
 }
+

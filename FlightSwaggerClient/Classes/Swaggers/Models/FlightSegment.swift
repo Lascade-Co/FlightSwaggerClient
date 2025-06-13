@@ -8,46 +8,64 @@
 import Foundation
 
 
-public class FlightSegment: JSONEncodable {
-    public var id: String?
-    public var arriveTimeAirport: Int32?
-    public var departureTimeAirport: Int32?
-    public var duration: Int32?
-    public var flightNumber: String?
-    public var airlineName: String?
-    public var airlineIata: String?
-    public var airlineLogo: String?
-    public var originCode: String?
-    public var origin: String?
-    public var destinationCode: String?
-    public var destination: String?
-    public var arrivalDayDifference: Int32?
+
+public struct FlightSegment: Codable {
+
+    public var _id: String
+    public var arriveTimeAirport: Int
+    public var departureTimeAirport: Int
+    public var duration: Int
+    public var flightNumber: String
+    public var airlineName: String
+    public var airlineIata: String
+    public var airlineLogo: String
+    public var originCode: String
+    public var origin: String
+    public var destinationCode: String
+    public var destination: String
+    public var arrivalDayDifference: Int?
     public var wifi: Bool?
     public var cabinClass: String?
     public var aircraft: String?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["id"] = self.id
-        nillableDictionary["arriveTimeAirport"] = self.arriveTimeAirport?.encodeToJSON()
-        nillableDictionary["departureTimeAirport"] = self.departureTimeAirport?.encodeToJSON()
-        nillableDictionary["duration"] = self.duration?.encodeToJSON()
-        nillableDictionary["flightNumber"] = self.flightNumber
-        nillableDictionary["airlineName"] = self.airlineName
-        nillableDictionary["airlineIata"] = self.airlineIata
-        nillableDictionary["airlineLogo"] = self.airlineLogo
-        nillableDictionary["originCode"] = self.originCode
-        nillableDictionary["origin"] = self.origin
-        nillableDictionary["destinationCode"] = self.destinationCode
-        nillableDictionary["destination"] = self.destination
-        nillableDictionary["arrival_day_difference"] = self.arrivalDayDifference?.encodeToJSON()
-        nillableDictionary["wifi"] = self.wifi
-        nillableDictionary["cabinClass"] = self.cabinClass
-        nillableDictionary["aircraft"] = self.aircraft
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(_id: String, arriveTimeAirport: Int, departureTimeAirport: Int, duration: Int, flightNumber: String, airlineName: String, airlineIata: String, airlineLogo: String, originCode: String, origin: String, destinationCode: String, destination: String, arrivalDayDifference: Int?, wifi: Bool?, cabinClass: String?, aircraft: String?) {
+        self._id = _id
+        self.arriveTimeAirport = arriveTimeAirport
+        self.departureTimeAirport = departureTimeAirport
+        self.duration = duration
+        self.flightNumber = flightNumber
+        self.airlineName = airlineName
+        self.airlineIata = airlineIata
+        self.airlineLogo = airlineLogo
+        self.originCode = originCode
+        self.origin = origin
+        self.destinationCode = destinationCode
+        self.destination = destination
+        self.arrivalDayDifference = arrivalDayDifference
+        self.wifi = wifi
+        self.cabinClass = cabinClass
+        self.aircraft = aircraft
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case _id = "id"
+        case arriveTimeAirport
+        case departureTimeAirport
+        case duration
+        case flightNumber
+        case airlineName
+        case airlineIata
+        case airlineLogo
+        case originCode
+        case origin
+        case destinationCode
+        case destination
+        case arrivalDayDifference = "arrival_day_difference"
+        case wifi
+        case cabinClass
+        case aircraft
+    }
+
+
 }
+

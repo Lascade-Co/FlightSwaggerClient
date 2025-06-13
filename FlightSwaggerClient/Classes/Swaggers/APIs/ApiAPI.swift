@@ -5,11 +5,12 @@
 // https://github.com/swagger-api/swagger-codegen
 //
 
+import Foundation
 import Alamofire
 
 
 
-public class ApiAPI: APIBase {
+open class ApiAPI {
     /**
 
      - parameter country: (query) Country code to filter results 
@@ -17,9 +18,9 @@ public class ApiAPI: APIBase {
      - parameter language: (query) Preferred language for results 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiAutocompleteList(country country: String, search: String, language: String, completion: ((data: FlightAutocompleteResponseBodyModel?, error: ErrorType?) -> Void)) {
+    open class func apiAutocompleteList(country: String, search: String, language: String, completion: @escaping ((_ data: FlightAutocompleteResponseBodyModel?,_ error: Error?) -> Void)) {
         apiAutocompleteListWithRequestBuilder(country: country, search: search, language: language).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -38,23 +39,21 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightAutocompleteResponseBodyModel> 
      */
-    public class func apiAutocompleteListWithRequestBuilder(country country: String, search: String, language: String) -> RequestBuilder<FlightAutocompleteResponseBodyModel> {
+    open class func apiAutocompleteListWithRequestBuilder(country: String, search: String, language: String) -> RequestBuilder<FlightAutocompleteResponseBodyModel> {
         let path = "/api/autocomplete/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "country": country,
-            "search": search,
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "country": country, 
+            "search": search, 
             "language": language
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightAutocompleteResponseBodyModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -64,9 +63,9 @@ public class ApiAPI: APIBase {
      - parameter limit: (query) Number of results to return per page. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiCountriesList(code code: String? = nil, page: Int32? = nil, limit: Int32? = nil, completion: ((data: FlightInlineResponse200?, error: ErrorType?) -> Void)) {
+    open class func apiCountriesList(code: String? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping ((_ data: FlightInlineResponse200?,_ error: Error?) -> Void)) {
         apiCountriesListWithRequestBuilder(code: code, page: page, limit: limit).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -85,23 +84,21 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightInlineResponse200> 
      */
-    public class func apiCountriesListWithRequestBuilder(code code: String? = nil, page: Int32? = nil, limit: Int32? = nil) -> RequestBuilder<FlightInlineResponse200> {
+    open class func apiCountriesListWithRequestBuilder(code: String? = nil, page: Int? = nil, limit: Int? = nil) -> RequestBuilder<FlightInlineResponse200> {
         let path = "/api/countries/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "code": code,
-            "page": page?.encodeToJSON(),
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "code": code, 
+            "page": page?.encodeToJSON(), 
             "limit": limit?.encodeToJSON()
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightInlineResponse200>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -112,9 +109,9 @@ public class ApiAPI: APIBase {
      - parameter limit: (query) Number of results to return per page. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiCurrenciesList(ordering ordering: String? = nil, search: String? = nil, page: Int32? = nil, limit: Int32? = nil, completion: ((data: FlightInlineResponse2001?, error: ErrorType?) -> Void)) {
+    open class func apiCurrenciesList(ordering: String? = nil, search: String? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping ((_ data: FlightInlineResponse2001?,_ error: Error?) -> Void)) {
         apiCurrenciesListWithRequestBuilder(ordering: ordering, search: search, page: page, limit: limit).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -134,24 +131,22 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightInlineResponse2001> 
      */
-    public class func apiCurrenciesListWithRequestBuilder(ordering ordering: String? = nil, search: String? = nil, page: Int32? = nil, limit: Int32? = nil) -> RequestBuilder<FlightInlineResponse2001> {
+    open class func apiCurrenciesListWithRequestBuilder(ordering: String? = nil, search: String? = nil, page: Int? = nil, limit: Int? = nil) -> RequestBuilder<FlightInlineResponse2001> {
         let path = "/api/currencies/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "ordering": ordering,
-            "search": search,
-            "page": page?.encodeToJSON(),
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "ordering": ordering, 
+            "search": search, 
+            "page": page?.encodeToJSON(), 
             "limit": limit?.encodeToJSON()
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightInlineResponse2001>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -161,9 +156,9 @@ public class ApiAPI: APIBase {
      - parameter country: (query) Country code 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiExploreCreate(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: ((data: FlightPriceInsightResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiExploreCreate(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: @escaping ((_ data: FlightPriceInsightResponseModel?,_ error: Error?) -> Void)) {
         apiExploreCreateWithRequestBuilder(data: data, currency: currency, country: country).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -182,25 +177,29 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightPriceInsightResponseModel> 
      */
-    public class func apiExploreCreateWithRequestBuilder(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
+    open class func apiExploreCreateWithRequestBuilder(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
         let path = "/api/explore/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "currency": currency, 
+            "country": country
+        ])
+
         let requestBuilder: RequestBuilder<FlightPriceInsightResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
      * enum for parameter arrivalType
      */
     public enum FlightArrivalType_apiExploreList: String { 
-        case Country = "country"
-        case City = "city"
-        case Airport = "airport"
+        case country = "country"
+        case city = "city"
+        case airport = "airport"
     }
 
     /**
@@ -215,9 +214,9 @@ public class ApiAPI: APIBase {
      - parameter arrivalId: (query) Arrival id (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiExploreList(country country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil, completion: ((data: FlightExploreResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiExploreList(country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil, completion: @escaping ((_ data: FlightExploreResponseModel?,_ error: Error?) -> Void)) {
         apiExploreListWithRequestBuilder(country: country, currency: currency, departure: departure, language: language, arrivalType: arrivalType, fromDate: fromDate, toDate: toDate, arrivalId: arrivalId).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -241,28 +240,26 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightExploreResponseModel> 
      */
-    public class func apiExploreListWithRequestBuilder(country country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil) -> RequestBuilder<FlightExploreResponseModel> {
+    open class func apiExploreListWithRequestBuilder(country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil) -> RequestBuilder<FlightExploreResponseModel> {
         let path = "/api/explore/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "country": country,
-            "currency": currency,
-            "departure": departure,
-            "from_date": fromDate,
-            "to_date": toDate,
-            "language": language,
-            "arrival_type": arrivalType.rawValue,
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "country": country, 
+            "currency": currency, 
+            "departure": departure, 
+            "from_date": fromDate, 
+            "to_date": toDate, 
+            "language": language, 
+            "arrival_type": arrivalType.rawValue, 
             "arrival_id": arrivalId
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightExploreResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -272,9 +269,9 @@ public class ApiAPI: APIBase {
      - parameter country: (query) Country code 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiExploreOldCreate(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: ((data: FlightPriceInsightResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiExploreOldCreate(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: @escaping ((_ data: FlightPriceInsightResponseModel?,_ error: Error?) -> Void)) {
         apiExploreOldCreateWithRequestBuilder(data: data, currency: currency, country: country).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -293,25 +290,29 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightPriceInsightResponseModel> 
      */
-    public class func apiExploreOldCreateWithRequestBuilder(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
+    open class func apiExploreOldCreateWithRequestBuilder(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
         let path = "/api/explore-old/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "currency": currency, 
+            "country": country
+        ])
+
         let requestBuilder: RequestBuilder<FlightPriceInsightResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
      * enum for parameter arrivalType
      */
     public enum FlightArrivalType_apiExploreOldList: String { 
-        case Country = "country"
-        case City = "city"
-        case Airport = "airport"
+        case country = "country"
+        case city = "city"
+        case airport = "airport"
     }
 
     /**
@@ -326,9 +327,9 @@ public class ApiAPI: APIBase {
      - parameter arrivalId: (query) Arrival id (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiExploreOldList(country country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreOldList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil, completion: ((data: FlightExploreResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiExploreOldList(country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreOldList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil, completion: @escaping ((_ data: FlightExploreResponseModel?,_ error: Error?) -> Void)) {
         apiExploreOldListWithRequestBuilder(country: country, currency: currency, departure: departure, language: language, arrivalType: arrivalType, fromDate: fromDate, toDate: toDate, arrivalId: arrivalId).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -352,28 +353,26 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightExploreResponseModel> 
      */
-    public class func apiExploreOldListWithRequestBuilder(country country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreOldList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil) -> RequestBuilder<FlightExploreResponseModel> {
+    open class func apiExploreOldListWithRequestBuilder(country: String, currency: String, departure: String, language: String, arrivalType: FlightArrivalType_apiExploreOldList, fromDate: String? = nil, toDate: String? = nil, arrivalId: String? = nil) -> RequestBuilder<FlightExploreResponseModel> {
         let path = "/api/explore-old/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "country": country,
-            "currency": currency,
-            "departure": departure,
-            "from_date": fromDate,
-            "to_date": toDate,
-            "language": language,
-            "arrival_type": arrivalType.rawValue,
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "country": country, 
+            "currency": currency, 
+            "departure": departure, 
+            "from_date": fromDate, 
+            "to_date": toDate, 
+            "language": language, 
+            "arrival_type": arrivalType.rawValue, 
             "arrival_id": arrivalId
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        ])
+
         let requestBuilder: RequestBuilder<FlightExploreResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -386,9 +385,9 @@ public class ApiAPI: APIBase {
      - parameter flightNumber: (query) Flight number to filter by (For extension only) (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiPollCreate(data data: FlightPollRequestBodyModel, searchId: String, limit: String? = nil, page: String? = nil, airlineIata: String? = nil, flightNumber: String? = nil, completion: ((data: FlightPollResponseBodyModel?, error: ErrorType?) -> Void)) {
+    open class func apiPollCreate(data: FlightPollRequestBodyModel, searchId: String, limit: String? = nil, page: String? = nil, airlineIata: String? = nil, flightNumber: String? = nil, completion: @escaping ((_ data: FlightPollResponseBodyModel?,_ error: Error?) -> Void)) {
         apiPollCreateWithRequestBuilder(data: data, searchId: searchId, limit: limit, page: page, airlineIata: airlineIata, flightNumber: flightNumber).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -410,16 +409,23 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightPollResponseBodyModel> 
      */
-    public class func apiPollCreateWithRequestBuilder(data data: FlightPollRequestBodyModel, searchId: String, limit: String? = nil, page: String? = nil, airlineIata: String? = nil, flightNumber: String? = nil) -> RequestBuilder<FlightPollResponseBodyModel> {
+    open class func apiPollCreateWithRequestBuilder(data: FlightPollRequestBodyModel, searchId: String, limit: String? = nil, page: String? = nil, airlineIata: String? = nil, flightNumber: String? = nil) -> RequestBuilder<FlightPollResponseBodyModel> {
         let path = "/api/poll/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "limit": limit, 
+            "page": page, 
+            "search_id": searchId, 
+            "airline_iata": airlineIata, 
+            "flight_number": flightNumber
+        ])
+
         let requestBuilder: RequestBuilder<FlightPollResponseBodyModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
@@ -429,9 +435,9 @@ public class ApiAPI: APIBase {
      - parameter country: (query) Country code 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiPriceCreate(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: ((data: FlightPriceInsightResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiPriceCreate(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String, completion: @escaping ((_ data: FlightPriceInsightResponseModel?,_ error: Error?) -> Void)) {
         apiPriceCreateWithRequestBuilder(data: data, currency: currency, country: country).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -450,16 +456,20 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightPriceInsightResponseModel> 
      */
-    public class func apiPriceCreateWithRequestBuilder(data data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
+    open class func apiPriceCreateWithRequestBuilder(data: FlightPriceInsightRequestCustomDrf, currency: String, country: String) -> RequestBuilder<FlightPriceInsightResponseModel> {
         let path = "/api/price/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "currency": currency, 
+            "country": country
+        ])
+
         let requestBuilder: RequestBuilder<FlightPriceInsightResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
@@ -472,9 +482,9 @@ public class ApiAPI: APIBase {
      - parameter currency: (query) Currency code to be used (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiSearchCreate(data data: FlightFlightSearchRequestBodyModel, country: String, userId: String, language: String, appCode: String, currency: String? = nil, completion: ((data: FlightFlightSearchResponseModel?, error: ErrorType?) -> Void)) {
+    open class func apiSearchCreate(data: FlightFlightSearchRequestBodyModel, country: String, userId: String, language: String, appCode: String, currency: String? = nil, completion: @escaping ((_ data: FlightFlightSearchResponseModel?,_ error: Error?) -> Void)) {
         apiSearchCreateWithRequestBuilder(data: data, country: country, userId: userId, language: language, appCode: appCode, currency: currency).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
+            completion(response?.body, error)
         }
     }
 
@@ -496,29 +506,39 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<FlightFlightSearchResponseModel> 
      */
-    public class func apiSearchCreateWithRequestBuilder(data data: FlightFlightSearchRequestBodyModel, country: String, userId: String, language: String, appCode: String, currency: String? = nil) -> RequestBuilder<FlightFlightSearchResponseModel> {
+    open class func apiSearchCreateWithRequestBuilder(data: FlightFlightSearchRequestBodyModel, country: String, userId: String, language: String, appCode: String, currency: String? = nil) -> RequestBuilder<FlightFlightSearchResponseModel> {
         let path = "/api/search/"
         let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
-        let nillableHeaders: [String: AnyObject?] = [
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "user_id": userId, 
+            "currency": currency, 
+            "language": language, 
+            "app_code": appCode
+        ])
+        let nillableHeaders: [String: Any?] = [
             "country": country
         ]
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
- 
+
         let requestBuilder: RequestBuilder<FlightFlightSearchResponseModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false, headers: headerParameters)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, headers: headerParameters)
     }
 
     /**
 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiSearchDelete(completion: ((error: ErrorType?) -> Void)) {
+    open class func apiSearchDelete(completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         apiSearchDeleteWithRequestBuilder().execute { (response, error) -> Void in
-            completion(error: error);
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
         }
     }
 
@@ -532,29 +552,30 @@ public class ApiAPI: APIBase {
 
      - returns: RequestBuilder<Void> 
      */
-    public class func apiSearchDeleteWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func apiSearchDeleteWithRequestBuilder() -> RequestBuilder<Void> {
         let path = "/api/search/delete/"
         let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
 
-        let nillableParameters: [String:AnyObject?] = [:]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
 
-     - parameter id: (path)  
+     - parameter _id: (path)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiSearchDelete_0(id id: String, completion: ((error: ErrorType?) -> Void)) {
-        apiSearchDelete_0WithRequestBuilder(id: id).execute { (response, error) -> Void in
-            completion(error: error);
+    open class func apiSearchDelete_0(_id: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        apiSearchDelete_0WithRequestBuilder(_id: _id).execute { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
         }
     }
 
@@ -566,24 +587,23 @@ public class ApiAPI: APIBase {
        - type: basic
        - name: Basic
      
-     - parameter id: (path)  
+     - parameter _id: (path)  
 
      - returns: RequestBuilder<Void> 
      */
-    public class func apiSearchDelete_0WithRequestBuilder(id id: String) -> RequestBuilder<Void> {
+    open class func apiSearchDelete_0WithRequestBuilder(_id: String) -> RequestBuilder<Void> {
         var path = "/api/search/{id}/"
-        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
         let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
 
-        let nillableParameters: [String:AnyObject?] = [:]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
 }

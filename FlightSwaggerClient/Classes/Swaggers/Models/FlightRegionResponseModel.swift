@@ -9,24 +9,31 @@ import Foundation
 
 
 /** Region details */
-public class FlightRegionResponseModel: JSONEncodable {
-    public var id: String?
+
+public struct FlightRegionResponseModel: Codable {
+
+    public var _id: String?
     public var name: String?
     public var shortName: String?
     public var latitude: Double?
     public var longitude: Double?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["id"] = self.id
-        nillableDictionary["name"] = self.name
-        nillableDictionary["short_name"] = self.shortName
-        nillableDictionary["latitude"] = self.latitude
-        nillableDictionary["longitude"] = self.longitude
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(_id: String?, name: String?, shortName: String?, latitude: Double?, longitude: Double?) {
+        self._id = _id
+        self.name = name
+        self.shortName = shortName
+        self.latitude = latitude
+        self.longitude = longitude
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case _id = "id"
+        case name
+        case shortName = "short_name"
+        case latitude
+        case longitude
+    }
+
+
 }
+

@@ -9,20 +9,19 @@ import Foundation
 
 
 /** Coordinates of the airport or city */
-public class FlightCoordinate: JSONEncodable {
+
+public struct FlightCoordinate: Codable {
+
     /** Latitude of the location */
     public var latitude: Double?
     /** Longitude of the location */
     public var longitude: Double?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["latitude"] = self.latitude
-        nillableDictionary["longitude"] = self.longitude
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(latitude: Double?, longitude: Double?) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
+
+
 }
+

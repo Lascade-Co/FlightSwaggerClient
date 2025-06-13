@@ -8,28 +8,27 @@
 import Foundation
 
 
-public class FlightSplitProvider: JSONEncodable {
-    public var name: String?
-    public var imageURL: String?
-    public var price: Double?
-    public var deeplink: String?
+
+public struct FlightSplitProvider: Codable {
+
+    public var name: String
+    public var imageURL: String
+    public var price: Double
+    public var deeplink: String
     public var rating: Double?
-    public var ratingCount: Int32?
+    public var ratingCount: Int?
     public var fareFamily: [String:String]?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["name"] = self.name
-        nillableDictionary["imageURL"] = self.imageURL
-        nillableDictionary["price"] = self.price
-        nillableDictionary["deeplink"] = self.deeplink
-        nillableDictionary["rating"] = self.rating
-        nillableDictionary["ratingCount"] = self.ratingCount?.encodeToJSON()
-        nillableDictionary["fareFamily"] = self.fareFamily?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(name: String, imageURL: String, price: Double, deeplink: String, rating: Double?, ratingCount: Int?, fareFamily: [String:String]?) {
+        self.name = name
+        self.imageURL = imageURL
+        self.price = price
+        self.deeplink = deeplink
+        self.rating = rating
+        self.ratingCount = ratingCount
+        self.fareFamily = fareFamily
     }
+
+
 }
+

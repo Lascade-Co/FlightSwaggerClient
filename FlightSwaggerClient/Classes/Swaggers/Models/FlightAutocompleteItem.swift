@@ -8,18 +8,20 @@
 import Foundation
 
 
-public class FlightAutocompleteItem: JSONEncodable {
-    public enum FlightType: String { 
-        case Airport = "airport"
-        case City = "city"
-        case Country = "country"
+
+public struct FlightAutocompleteItem: Codable {
+
+    public enum FlightType: String, Codable { 
+        case airport = "airport"
+        case city = "city"
+        case country = "country"
     }
     /** IATA code of the airport */
-    public var iataCode: String?
+    public var iataCode: String
     /** Name of the airport */
-    public var airportName: String?
+    public var airportName: String
     /** Type of the autocomplete item */
-    public var type: FlightType?
+    public var type: FlightType
     /** Name of the city if applicable */
     public var cityName: String?
     /** Display name for the item */
@@ -29,24 +31,21 @@ public class FlightAutocompleteItem: JSONEncodable {
     /** Country code if applicable */
     public var countryCode: String?
     /** Image URL for the airport or city */
-    public var imageUrl: String?
-    public var coordinates: FlightCoordinate?
+    public var imageUrl: String
+    public var coordinates: FlightCoordinate
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["iataCode"] = self.iataCode
-        nillableDictionary["airportName"] = self.airportName
-        nillableDictionary["type"] = self.type?.rawValue
-        nillableDictionary["cityName"] = self.cityName
-        nillableDictionary["displayName"] = self.displayName
-        nillableDictionary["countryName"] = self.countryName
-        nillableDictionary["countryCode"] = self.countryCode
-        nillableDictionary["imageUrl"] = self.imageUrl
-        nillableDictionary["coordinates"] = self.coordinates?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(iataCode: String, airportName: String, type: FlightType, cityName: String?, displayName: String?, countryName: String?, countryCode: String?, imageUrl: String, coordinates: FlightCoordinate) {
+        self.iataCode = iataCode
+        self.airportName = airportName
+        self.type = type
+        self.cityName = cityName
+        self.displayName = displayName
+        self.countryName = countryName
+        self.countryCode = countryCode
+        self.imageUrl = imageUrl
+        self.coordinates = coordinates
     }
+
+
 }
+

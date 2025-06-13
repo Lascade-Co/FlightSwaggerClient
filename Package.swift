@@ -13,7 +13,7 @@ let package = Package(
             targets: ["FlightSwaggerClient"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.6.0")
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "4.9.0")
     ],
     targets: [
         .target(

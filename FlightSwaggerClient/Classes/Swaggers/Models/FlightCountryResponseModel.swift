@@ -8,32 +8,40 @@
 import Foundation
 
 
-public class FlightCountryResponseModel: JSONEncodable {
+
+public struct FlightCountryResponseModel: Codable {
+
     /** Country ID */
-    public var id: String?
+    public var _id: String
     /** Country name */
-    public var name: String?
+    public var name: String
     /** Country code */
-    public var shortName: String?
+    public var shortName: String
     /** Country latitude */
-    public var latitude: Double?
+    public var latitude: Double
     /** Country longitude */
-    public var longitude: Double?
+    public var longitude: Double
     /** List of destinations */
-    public var destinations: [FlightDestinationResponseModel]?
+    public var destinations: [FlightDestinationResponseModel]
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["id"] = self.id
-        nillableDictionary["name"] = self.name
-        nillableDictionary["short_name"] = self.shortName
-        nillableDictionary["latitude"] = self.latitude
-        nillableDictionary["longitude"] = self.longitude
-        nillableDictionary["destinations"] = self.destinations?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(_id: String, name: String, shortName: String, latitude: Double, longitude: Double, destinations: [FlightDestinationResponseModel]) {
+        self._id = _id
+        self.name = name
+        self.shortName = shortName
+        self.latitude = latitude
+        self.longitude = longitude
+        self.destinations = destinations
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case _id = "id"
+        case name
+        case shortName = "short_name"
+        case latitude
+        case longitude
+        case destinations
+    }
+
+
 }
+

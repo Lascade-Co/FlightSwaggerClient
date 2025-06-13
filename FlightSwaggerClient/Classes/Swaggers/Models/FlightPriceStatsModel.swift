@@ -9,26 +9,32 @@ import Foundation
 
 
 /** Statistical information about prices */
-public class FlightPriceStatsModel: JSONEncodable {
+
+public struct FlightPriceStatsModel: Codable {
+
     /** Mean price across all dates */
-    public var mean: Double?
+    public var mean: Double
     /** Standard deviation of prices */
-    public var stdDev: Double?
+    public var stdDev: Double
     /** Lower threshold for categorization */
-    public var lowerThreshold: Double?
+    public var lowerThreshold: Double
     /** Upper threshold for categorization */
-    public var upperThreshold: Double?
+    public var upperThreshold: Double
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["mean"] = self.mean
-        nillableDictionary["std_dev"] = self.stdDev
-        nillableDictionary["lower_threshold"] = self.lowerThreshold
-        nillableDictionary["upper_threshold"] = self.upperThreshold
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(mean: Double, stdDev: Double, lowerThreshold: Double, upperThreshold: Double) {
+        self.mean = mean
+        self.stdDev = stdDev
+        self.lowerThreshold = lowerThreshold
+        self.upperThreshold = upperThreshold
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case mean
+        case stdDev = "std_dev"
+        case lowerThreshold = "lower_threshold"
+        case upperThreshold = "upper_threshold"
+    }
+
+
 }
+

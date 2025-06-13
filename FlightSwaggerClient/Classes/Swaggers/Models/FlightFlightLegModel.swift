@@ -9,26 +9,25 @@ import Foundation
 
 
 /** Outbound flight details */
-public class FlightFlightLegModel: JSONEncodable {
-    public var origin: FlightAirportModel?
-    public var destination: FlightAirportModel?
-    public var airline: FlightAirlineModel?
+
+public struct FlightFlightLegModel: Codable {
+
+    public var origin: FlightAirportModel
+    public var destination: FlightAirportModel
+    public var airline: FlightAirlineModel
     /** Departure timestamp */
-    public var departure: Int32?
+    public var departure: Int
     /** Whether the flight is direct */
-    public var direct: Bool?
+    public var direct: Bool
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["origin"] = self.origin?.encodeToJSON()
-        nillableDictionary["destination"] = self.destination?.encodeToJSON()
-        nillableDictionary["airline"] = self.airline?.encodeToJSON()
-        nillableDictionary["departure"] = self.departure?.encodeToJSON()
-        nillableDictionary["direct"] = self.direct
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(origin: FlightAirportModel, destination: FlightAirportModel, airline: FlightAirlineModel, departure: Int, direct: Bool) {
+        self.origin = origin
+        self.destination = destination
+        self.airline = airline
+        self.departure = departure
+        self.direct = direct
     }
+
+
 }
+

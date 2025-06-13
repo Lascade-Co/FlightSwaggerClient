@@ -8,23 +8,22 @@
 import Foundation
 
 
-public class FlightLegType: JSONEncodable {
+
+public struct FlightLegType: Codable {
+
     /** Origin airport code like \&quot;SFO\&quot; */
-    public var origin: String?
+    public var origin: String
     /** Destination airport code like \&quot;LAX\&quot; */
-    public var destination: String?
+    public var destination: String
     /** Date in YYYY-MM-DD format */
-    public var date: String?
+    public var date: String
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["origin"] = self.origin
-        nillableDictionary["destination"] = self.destination
-        nillableDictionary["date"] = self.date
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(origin: String, destination: String, date: String) {
+        self.origin = origin
+        self.destination = destination
+        self.date = date
     }
+
+
 }
+

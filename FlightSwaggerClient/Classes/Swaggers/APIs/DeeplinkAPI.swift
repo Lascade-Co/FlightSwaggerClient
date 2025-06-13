@@ -5,14 +5,15 @@
 // https://github.com/swagger-api/swagger-codegen
 //
 
+import Foundation
 import Alamofire
 
 
 
-public class DeeplinkAPI: APIBase {
+open class DeeplinkAPI {
     /**
 
-     - parameter id: (path)  
+     - parameter _id: (path)  
      - parameter country: (query) Country code 
      - parameter legs: (query) Array of flight legs with date in YYYY-MM-DD format 
      - parameter cabinClass: (query) Cabin class like \&quot;economy\&quot;, \&quot;business\&quot; etc 
@@ -24,9 +25,13 @@ public class DeeplinkAPI: APIBase {
      - parameter childrenAges: (query) List of children ages (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func deeplinkRead(id id: String, country: String, legs: [AnyObject], cabinClass: String, adults: Int32, currency: String, language: String, userId: String, appCode: String, childrenAges: [Int32]? = nil, completion: ((error: ErrorType?) -> Void)) {
-        deeplinkReadWithRequestBuilder(id: id, country: country, legs: legs, cabinClass: cabinClass, adults: adults, currency: currency, language: language, userId: userId, appCode: appCode, childrenAges: childrenAges).execute { (response, error) -> Void in
-            completion(error: error);
+    open class func deeplinkRead(_id: String, country: String, legs: [FlightJSONValue], cabinClass: String, adults: Int, currency: String, language: String, userId: String, appCode: String, childrenAges: [Int]? = nil, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        deeplinkReadWithRequestBuilder(_id: _id, country: country, legs: legs, cabinClass: cabinClass, adults: adults, currency: currency, language: language, userId: userId, appCode: appCode, childrenAges: childrenAges).execute { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
         }
     }
 
@@ -38,7 +43,7 @@ public class DeeplinkAPI: APIBase {
        - type: basic
        - name: Basic
      
-     - parameter id: (path)  
+     - parameter _id: (path)  
      - parameter country: (query) Country code 
      - parameter legs: (query) Array of flight legs with date in YYYY-MM-DD format 
      - parameter cabinClass: (query) Cabin class like \&quot;economy\&quot;, \&quot;business\&quot; etc 
@@ -51,30 +56,30 @@ public class DeeplinkAPI: APIBase {
 
      - returns: RequestBuilder<Void> 
      */
-    public class func deeplinkReadWithRequestBuilder(id id: String, country: String, legs: [AnyObject], cabinClass: String, adults: Int32, currency: String, language: String, userId: String, appCode: String, childrenAges: [Int32]? = nil) -> RequestBuilder<Void> {
+    open class func deeplinkReadWithRequestBuilder(_id: String, country: String, legs: [FlightJSONValue], cabinClass: String, adults: Int, currency: String, language: String, userId: String, appCode: String, childrenAges: [Int]? = nil) -> RequestBuilder<Void> {
         var path = "/deeplink/{id}/"
-        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
         let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [
-            "country": country,
-            "legs": legs,
-            "cabin_class": cabinClass,
-            "adults": adults.encodeToJSON(),
-            "children_ages": childrenAges,
-            "currency": currency,
-            "language": language,
-            "user_id": userId,
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "country": country, 
+            "legs": legs, 
+            "cabin_class": cabinClass, 
+            "adults": adults.encodeToJSON(), 
+            "children_ages": childrenAges, 
+            "currency": currency, 
+            "language": language, 
+            "user_id": userId, 
             "app_code": appCode
-        ]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+        ])
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
 }

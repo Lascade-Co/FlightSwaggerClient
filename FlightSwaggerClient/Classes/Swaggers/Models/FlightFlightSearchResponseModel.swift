@@ -8,28 +8,35 @@
 import Foundation
 
 
-public class FlightFlightSearchResponseModel: JSONEncodable {
+
+public struct FlightFlightSearchResponseModel: Codable {
+
     /** Search id from polling service */
-    public var searchId: String?
+    public var searchId: String
     /** Language of the response */
-    public var language: String?
+    public var language: String
     /** Currency of the response */
-    public var currency: String?
+    public var currency: String
     /** Mode of the response, 1 - Kayak only, 2 - SkyScanner only, 3 - Kayak and SkyScanner */
-    public var mode: Int32?
+    public var mode: Int
     public var currencyInfo: FlightCurrencyModelType?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["search_id"] = self.searchId
-        nillableDictionary["language"] = self.language
-        nillableDictionary["currency"] = self.currency
-        nillableDictionary["mode"] = self.mode?.encodeToJSON()
-        nillableDictionary["currency_info"] = self.currencyInfo?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(searchId: String, language: String, currency: String, mode: Int, currencyInfo: FlightCurrencyModelType?) {
+        self.searchId = searchId
+        self.language = language
+        self.currency = currency
+        self.mode = mode
+        self.currencyInfo = currencyInfo
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case searchId = "search_id"
+        case language
+        case currency
+        case mode
+        case currencyInfo = "currency_info"
+    }
+
+
 }
+

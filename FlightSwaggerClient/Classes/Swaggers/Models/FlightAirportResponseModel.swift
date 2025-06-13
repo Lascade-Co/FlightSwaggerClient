@@ -9,24 +9,31 @@ import Foundation
 
 
 /** Airport details */
-public class FlightAirportResponseModel: JSONEncodable {
-    public var name: String?
-    public var shortName: String?
-    public var popularity: Int32?
-    public var latitude: Double?
-    public var longitude: Double?
 
-    public init() {}
+public struct FlightAirportResponseModel: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["name"] = self.name
-        nillableDictionary["short_name"] = self.shortName
-        nillableDictionary["popularity"] = self.popularity?.encodeToJSON()
-        nillableDictionary["latitude"] = self.latitude
-        nillableDictionary["longitude"] = self.longitude
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var name: String
+    public var shortName: String
+    public var popularity: Int
+    public var latitude: Double
+    public var longitude: Double
+
+    public init(name: String, shortName: String, popularity: Int, latitude: Double, longitude: Double) {
+        self.name = name
+        self.shortName = shortName
+        self.popularity = popularity
+        self.latitude = latitude
+        self.longitude = longitude
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case name
+        case shortName = "short_name"
+        case popularity
+        case latitude
+        case longitude
+    }
+
+
 }
+

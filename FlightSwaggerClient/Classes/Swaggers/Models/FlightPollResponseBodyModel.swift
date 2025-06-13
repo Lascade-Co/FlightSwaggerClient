@@ -8,50 +8,65 @@
 import Foundation
 
 
-public class FlightPollResponseBodyModel: JSONEncodable {
+
+public struct FlightPollResponseBodyModel: Codable {
+
     /** Number of flights available in cache */
-    public var count: Int32?
+    public var count: Int
     /** Link to next page but use page param instead */
     public var next: String?
     /** Link to previous page but use page param instead */
     public var previous: String?
     /** Cache status, True if polling is complete */
-    public var cache: Bool?
+    public var cache: Bool
     /** Number of passengers */
-    public var passengerCount: Int32?
+    public var passengerCount: Int
     /** List of airlines */
-    public var airlines: [FlightAirlineFilterData]?
+    public var airlines: [FlightAirlineFilterData]
     /** Minimum duration of the flight in minutes */
-    public var minDuration: Int32?
+    public var minDuration: Int
     /** Maximum duration of the flight in minutes */
-    public var maxDuration: Int32?
+    public var maxDuration: Int
     /** List of agencies */
-    public var agencies: [FlightProviderFilterData]?
-    public var cheapestFlight: FlightFlightDetailModel?
-    public var bestFlight: FlightFlightDetailModel?
-    public var fastestFlight: FlightFlightDetailModel?
+    public var agencies: [FlightProviderFilterData]
+    public var cheapestFlight: FlightFlightDetailModel
+    public var bestFlight: FlightFlightDetailModel
+    public var fastestFlight: FlightFlightDetailModel
     /** List of flights */
-    public var results: [FlightFlight]?
+    public var results: [FlightFlight]
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["count"] = self.count?.encodeToJSON()
-        nillableDictionary["next"] = self.next
-        nillableDictionary["previous"] = self.previous
-        nillableDictionary["cache"] = self.cache
-        nillableDictionary["passenger_count"] = self.passengerCount?.encodeToJSON()
-        nillableDictionary["airlines"] = self.airlines?.encodeToJSON()
-        nillableDictionary["min_duration"] = self.minDuration?.encodeToJSON()
-        nillableDictionary["max_duration"] = self.maxDuration?.encodeToJSON()
-        nillableDictionary["agencies"] = self.agencies?.encodeToJSON()
-        nillableDictionary["cheapest_flight"] = self.cheapestFlight?.encodeToJSON()
-        nillableDictionary["best_flight"] = self.bestFlight?.encodeToJSON()
-        nillableDictionary["fastest_flight"] = self.fastestFlight?.encodeToJSON()
-        nillableDictionary["results"] = self.results?.encodeToJSON()
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(count: Int, next: String?, previous: String?, cache: Bool, passengerCount: Int, airlines: [FlightAirlineFilterData], minDuration: Int, maxDuration: Int, agencies: [FlightProviderFilterData], cheapestFlight: FlightFlightDetailModel, bestFlight: FlightFlightDetailModel, fastestFlight: FlightFlightDetailModel, results: [FlightFlight]) {
+        self.count = count
+        self.next = next
+        self.previous = previous
+        self.cache = cache
+        self.passengerCount = passengerCount
+        self.airlines = airlines
+        self.minDuration = minDuration
+        self.maxDuration = maxDuration
+        self.agencies = agencies
+        self.cheapestFlight = cheapestFlight
+        self.bestFlight = bestFlight
+        self.fastestFlight = fastestFlight
+        self.results = results
     }
+
+    public enum CodingKeys: String, CodingKey { 
+        case count
+        case next
+        case previous
+        case cache
+        case passengerCount = "passenger_count"
+        case airlines
+        case minDuration = "min_duration"
+        case maxDuration = "max_duration"
+        case agencies
+        case cheapestFlight = "cheapest_flight"
+        case bestFlight = "best_flight"
+        case fastestFlight = "fastest_flight"
+        case results
+    }
+
+
 }
+

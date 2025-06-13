@@ -8,20 +8,19 @@
 import Foundation
 
 
-public class FlightAirlineFilterData: JSONEncodable {
-    public var airlineName: String?
-    public var airlineIata: String?
-    public var airlineLogo: String?
 
-    public init() {}
+public struct FlightAirlineFilterData: Codable {
 
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["airlineName"] = self.airlineName
-        nillableDictionary["airlineIata"] = self.airlineIata
-        nillableDictionary["airlineLogo"] = self.airlineLogo
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public var airlineName: String
+    public var airlineIata: String
+    public var airlineLogo: String
+
+    public init(airlineName: String, airlineIata: String, airlineLogo: String) {
+        self.airlineName = airlineName
+        self.airlineIata = airlineIata
+        self.airlineLogo = airlineLogo
     }
+
+
 }
+

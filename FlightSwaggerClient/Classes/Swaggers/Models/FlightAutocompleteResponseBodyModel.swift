@@ -8,20 +8,19 @@
 import Foundation
 
 
-public class FlightAutocompleteResponseBodyModel: JSONEncodable {
+
+public struct FlightAutocompleteResponseBodyModel: Codable {
+
     /** List of autocomplete items */
-    public var data: [FlightAutocompleteItem]?
+    public var data: [FlightAutocompleteItem]
     /** Language of the response */
     public var language: String?
 
-    public init() {}
-
-    // MARK: JSONEncodable
-    func encodeToJSON() -> AnyObject {
-        var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["data"] = self.data?.encodeToJSON()
-        nillableDictionary["language"] = self.language
-        let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
-        return dictionary
+    public init(data: [FlightAutocompleteItem], language: String?) {
+        self.data = data
+        self.language = language
     }
+
+
 }
+
