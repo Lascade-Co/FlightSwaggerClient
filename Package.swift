@@ -21,7 +21,7 @@ let package = Package(
             dependencies: [
                 "Alamofire"
             ], // Add dependency names here if needed
-            path: "FlightSwaggerClient/Classes" // Adjust path to your source fil
+            path: "FlightSwaggerClient/Classes",
             swiftSettings: [
                 .unsafeFlags([
                     "-enable-library-evolution",
