@@ -151,411 +151,610 @@ class Decoders {
                 fatalError("formatter failed to parse \(source)")
             }) 
 
-            // Decoder for [AircraftType]
-            Decoders.addDecoder(clazz: [AircraftType].self) { (source: AnyObject) -> [AircraftType] in
-                return Decoders.decode(clazz: [AircraftType].self, source: source)
+            // Decoder for [FlightAirlineFilterData]
+            Decoders.addDecoder(clazz: [FlightAirlineFilterData].self) { (source: AnyObject) -> [FlightAirlineFilterData] in
+                return Decoders.decode(clazz: [FlightAirlineFilterData].self, source: source)
             }
-            // Decoder for AircraftType
-            Decoders.addDecoder(clazz: AircraftType.self) { (source: AnyObject) -> AircraftType in
+            // Decoder for FlightAirlineFilterData
+            Decoders.addDecoder(clazz: FlightAirlineFilterData.self) { (source: AnyObject) -> FlightAirlineFilterData in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AircraftType()
-                instance.hex = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["hex"])
-                instance.regNumber = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["reg_number"])
-                instance.country = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country"])
-                instance.built = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["built"])
-                instance.engine = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["engine"])
-                instance.engineCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["engine_count"])
-                instance.model = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["model"])
-                instance.manufacturer = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["manufacturer"])
-                instance.msn = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["msn"])
-                instance.type = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"])
-                instance.category = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["category"])
-                instance.line = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["line"])
-                instance.imageUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["image_url"])
+                let instance = FlightAirlineFilterData()
+                instance.airlineName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineName"])
+                instance.airlineIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineIata"])
+                instance.airlineLogo = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineLogo"])
                 return instance
             }
 
 
-            // Decoder for [AirlineFlightBoardFlightType]
-            Decoders.addDecoder(clazz: [AirlineFlightBoardFlightType].self) { (source: AnyObject) -> [AirlineFlightBoardFlightType] in
-                return Decoders.decode(clazz: [AirlineFlightBoardFlightType].self, source: source)
+            // Decoder for [FlightAirlineModel]
+            Decoders.addDecoder(clazz: [FlightAirlineModel].self) { (source: AnyObject) -> [FlightAirlineModel] in
+                return Decoders.decode(clazz: [FlightAirlineModel].self, source: source)
             }
-            // Decoder for AirlineFlightBoardFlightType
-            Decoders.addDecoder(clazz: AirlineFlightBoardFlightType.self) { (source: AnyObject) -> AirlineFlightBoardFlightType in
+            // Decoder for FlightAirlineModel
+            Decoders.addDecoder(clazz: FlightAirlineModel.self) { (source: AnyObject) -> FlightAirlineModel in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AirlineFlightBoardFlightType()
-                instance.flightIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flight_iata"])
-                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
-                return instance
-            }
-
-
-            // Decoder for [AirlineFlightBoardResponseModel]
-            Decoders.addDecoder(clazz: [AirlineFlightBoardResponseModel].self) { (source: AnyObject) -> [AirlineFlightBoardResponseModel] in
-                return Decoders.decode(clazz: [AirlineFlightBoardResponseModel].self, source: source)
-            }
-            // Decoder for AirlineFlightBoardResponseModel
-            Decoders.addDecoder(clazz: AirlineFlightBoardResponseModel.self) { (source: AnyObject) -> AirlineFlightBoardResponseModel in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AirlineFlightBoardResponseModel()
-                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
-                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
-                return instance
-            }
-
-
-            // Decoder for [AirlineFlightBoardResultModel]
-            Decoders.addDecoder(clazz: [AirlineFlightBoardResultModel].self) { (source: AnyObject) -> [AirlineFlightBoardResultModel] in
-                return Decoders.decode(clazz: [AirlineFlightBoardResultModel].self, source: source)
-            }
-            // Decoder for AirlineFlightBoardResultModel
-            Decoders.addDecoder(clazz: AirlineFlightBoardResultModel.self) { (source: AnyObject) -> AirlineFlightBoardResultModel in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AirlineFlightBoardResultModel()
-                instance.departure = Decoders.decodeOptional(clazz: ScheduleListAirportType.self, source: sourceDictionary["departure"])
-                instance.arrival = Decoders.decodeOptional(clazz: ScheduleListAirportType.self, source: sourceDictionary["arrival"])
-                instance.airline = Decoders.decodeOptional(clazz: ScheduleListAirlineType.self, source: sourceDictionary["airline"])
-                instance.flight = Decoders.decodeOptional(clazz: AirlineFlightBoardFlightType.self, source: sourceDictionary["flight"])
-                return instance
-            }
-
-
-            // Decoder for [AirlineType]
-            Decoders.addDecoder(clazz: [AirlineType].self) { (source: AnyObject) -> [AirlineType] in
-                return Decoders.decode(clazz: [AirlineType].self, source: source)
-            }
-            // Decoder for AirlineType
-            Decoders.addDecoder(clazz: AirlineType.self) { (source: AnyObject) -> AirlineType in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AirlineType()
+                let instance = FlightAirlineModel()
+                instance.iata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata"])
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
-                instance.iataCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata_code"])
-                instance.icaoCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["icao_code"])
-                instance.isInternational = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_international"])
-                instance.website = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["website"])
-                instance.country = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country"])
-                instance.callsign = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["callsign"])
-                instance.isPassenger = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_passenger"])
-                instance.isCargo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_cargo"])
-                instance.totalAircrafts = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["total_aircrafts"])
-                instance.averageFleetAge = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["average_fleet_age"])
-                instance.accidentsLast5y = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["accidents_last_5y"])
-                instance.crashesLast5y = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["crashes_last_5y"])
+                instance.logo = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["logo"])
                 return instance
             }
 
 
-            // Decoder for [Airport]
-            Decoders.addDecoder(clazz: [Airport].self) { (source: AnyObject) -> [Airport] in
-                return Decoders.decode(clazz: [Airport].self, source: source)
+            // Decoder for [FlightAirportModel]
+            Decoders.addDecoder(clazz: [FlightAirportModel].self) { (source: AnyObject) -> [FlightAirportModel] in
+                return Decoders.decode(clazz: [FlightAirportModel].self, source: source)
             }
-            // Decoder for Airport
-            Decoders.addDecoder(clazz: Airport.self) { (source: AnyObject) -> Airport in
+            // Decoder for FlightAirportModel
+            Decoders.addDecoder(clazz: FlightAirportModel.self) { (source: AnyObject) -> FlightAirportModel in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = Airport()
-                instance.iataCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata_code"])
-                instance.icaoCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["icao_code"])
+                let instance = FlightAirportModel()
+                instance.iata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata"])
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
                 instance.country = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country"])
-                instance.countryCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country_code"])
-                instance.isInternational = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_international"])
-                instance.isMajor = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_major"])
-                instance.city = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["city"])
-                instance.location = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["location"])
-                instance.timezone = Decoders.decodeOptional(clazz: Timezone.self, source: sourceDictionary["timezone"])
                 return instance
             }
 
 
-            // Decoder for [Alert]
-            Decoders.addDecoder(clazz: [Alert].self) { (source: AnyObject) -> [Alert] in
-                return Decoders.decode(clazz: [Alert].self, source: source)
+            // Decoder for [FlightAlert]
+            Decoders.addDecoder(clazz: [FlightAlert].self) { (source: AnyObject) -> [FlightAlert] in
+                return Decoders.decode(clazz: [FlightAlert].self, source: source)
             }
-            // Decoder for Alert
-            Decoders.addDecoder(clazz: Alert.self) { (source: AnyObject) -> Alert in
+            // Decoder for FlightAlert
+            Decoders.addDecoder(clazz: FlightAlert.self) { (source: AnyObject) -> FlightAlert in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = Alert()
-                instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"])
-                instance.flightIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flight_iata"])
-                instance.date = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["date"])
-                instance.departureAirport = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_airport"])
-                instance.arrivalAirport = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_airport"])
+                let instance = FlightAlert()
+                instance.id = Decoders.decodeOptional(clazz: NSUUID.self, source: sourceDictionary["id"])
+                instance.user = Decoders.decodeOptional(clazz: FlightAlertUser.self, source: sourceDictionary["user"])
+                instance.route = Decoders.decodeOptional(clazz: FlightAlertRoute.self, source: sourceDictionary["route"])
+                instance.targetPrice = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["target_price"])
                 instance.isActive = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_active"])
+                instance.createdAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["created_at"])
+                instance.updatedAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["updated_at"])
                 return instance
             }
 
 
-            // Decoder for [AlertRequestModel]
-            Decoders.addDecoder(clazz: [AlertRequestModel].self) { (source: AnyObject) -> [AlertRequestModel] in
-                return Decoders.decode(clazz: [AlertRequestModel].self, source: source)
+            // Decoder for [FlightAlertRoute]
+            Decoders.addDecoder(clazz: [FlightAlertRoute].self) { (source: AnyObject) -> [FlightAlertRoute] in
+                return Decoders.decode(clazz: [FlightAlertRoute].self, source: source)
             }
-            // Decoder for AlertRequestModel
-            Decoders.addDecoder(clazz: AlertRequestModel.self) { (source: AnyObject) -> AlertRequestModel in
+            // Decoder for FlightAlertRoute
+            Decoders.addDecoder(clazz: FlightAlertRoute.self) { (source: AnyObject) -> FlightAlertRoute in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = AlertRequestModel()
-                instance.user = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["user"])
-                instance.flightIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flight_iata"])
-                instance.date = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["date"])
-                instance.departureAirport = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_airport"])
-                instance.arrivalAirport = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_airport"])
+                let instance = FlightAlertRoute()
+                instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"])
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.destination = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destination"])
+                instance.departureDate = Decoders.decodeOptional(clazz: FlightISOFullDate.self, source: sourceDictionary["departure_date"])
+                instance.returnDate = Decoders.decodeOptional(clazz: FlightISOFullDate.self, source: sourceDictionary["return_date"])
+                instance.currency = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["currency"])
+                instance.currentPrice = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["current_price"])
+                instance.lastNotifiedPrice = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["last_notified_price"])
+                instance.createdAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["created_at"])
+                instance.updatedAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["updated_at"])
                 return instance
             }
 
 
-            // Decoder for [CombinedSearchResult]
-            Decoders.addDecoder(clazz: [CombinedSearchResult].self) { (source: AnyObject) -> [CombinedSearchResult] in
-                return Decoders.decode(clazz: [CombinedSearchResult].self, source: source)
+            // Decoder for [FlightAlertUser]
+            Decoders.addDecoder(clazz: [FlightAlertUser].self) { (source: AnyObject) -> [FlightAlertUser] in
+                return Decoders.decode(clazz: [FlightAlertUser].self, source: source)
             }
-            // Decoder for CombinedSearchResult
-            Decoders.addDecoder(clazz: CombinedSearchResult.self) { (source: AnyObject) -> CombinedSearchResult in
+            // Decoder for FlightAlertUser
+            Decoders.addDecoder(clazz: FlightAlertUser.self) { (source: AnyObject) -> FlightAlertUser in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = CombinedSearchResult()
-                instance.type = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"])
-                instance.iataCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata_code"])
-                instance.icaoCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["icao_code"])
-                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
-                instance.country = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country"])
-                instance.city = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["city"])
-                instance.isInternational = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_international"])
-                instance.isMajor = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_major"])
-                instance.callsign = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["callsign"])
-                instance.isPassenger = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_passenger"])
-                instance.isCargo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_cargo"])
-                return instance
-            }
-
-
-            // Decoder for [FlightDatetimeDataType]
-            Decoders.addDecoder(clazz: [FlightDatetimeDataType].self) { (source: AnyObject) -> [FlightDatetimeDataType] in
-                return Decoders.decode(clazz: [FlightDatetimeDataType].self, source: source)
-            }
-            // Decoder for FlightDatetimeDataType
-            Decoders.addDecoder(clazz: FlightDatetimeDataType.self) { (source: AnyObject) -> FlightDatetimeDataType in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = FlightDatetimeDataType()
-                instance.utc = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["utc"])
-                instance.local = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["local"])
-                return instance
-            }
-
-
-            // Decoder for [FlightInfoAirport]
-            Decoders.addDecoder(clazz: [FlightInfoAirport].self) { (source: AnyObject) -> [FlightInfoAirport] in
-                return Decoders.decode(clazz: [FlightInfoAirport].self, source: source)
-            }
-            // Decoder for FlightInfoAirport
-            Decoders.addDecoder(clazz: FlightInfoAirport.self) { (source: AnyObject) -> FlightInfoAirport in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = FlightInfoAirport()
-                instance.airport = Decoders.decodeOptional(clazz: Airport.self, source: sourceDictionary["airport"])
-                instance.scheduled = Decoders.decodeOptional(clazz: FlightDatetimeDataType.self, source: sourceDictionary["scheduled"])
-                instance.estimated = Decoders.decodeOptional(clazz: FlightDatetimeDataType.self, source: sourceDictionary["estimated"])
-                instance.taxiing = Decoders.decodeOptional(clazz: FlightDatetimeDataType.self, source: sourceDictionary["taxiing"])
-                instance.actual = Decoders.decodeOptional(clazz: FlightDatetimeDataType.self, source: sourceDictionary["actual"])
-                instance.terminal = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["terminal"])
-                instance.gate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gate"])
-                instance.baggageBelt = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["baggage_belt"])
-                return instance
-            }
-
-
-            // Decoder for [FlightInfoResponseModel]
-            Decoders.addDecoder(clazz: [FlightInfoResponseModel].self) { (source: AnyObject) -> [FlightInfoResponseModel] in
-                return Decoders.decode(clazz: [FlightInfoResponseModel].self, source: source)
-            }
-            // Decoder for FlightInfoResponseModel
-            Decoders.addDecoder(clazz: FlightInfoResponseModel.self) { (source: AnyObject) -> FlightInfoResponseModel in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = FlightInfoResponseModel()
-                instance.greatCircleDistance = Decoders.decodeOptional(clazz: GreatCircleDistance.self, source: sourceDictionary["great_circle_distance"])
-                instance.departure = Decoders.decodeOptional(clazz: FlightInfoAirport.self, source: sourceDictionary["departure"])
-                instance.arrival = Decoders.decodeOptional(clazz: FlightInfoAirport.self, source: sourceDictionary["arrival"])
-                instance.lastUpdated = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["last_updated"])
-                instance.flightIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flight_iata"])
-                instance.callSign = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["call_sign"])
-                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
-                instance.codeshareStatus = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["codeshare_status"])
-                instance.isCargo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_cargo"])
-                instance.aircraft = Decoders.decodeOptional(clazz: AircraftType.self, source: sourceDictionary["aircraft"])
-                instance.airline = Decoders.decodeOptional(clazz: AirlineType.self, source: sourceDictionary["airline"])
-                return instance
-            }
-
-
-            // Decoder for [GreatCircleDistance]
-            Decoders.addDecoder(clazz: [GreatCircleDistance].self) { (source: AnyObject) -> [GreatCircleDistance] in
-                return Decoders.decode(clazz: [GreatCircleDistance].self, source: source)
-            }
-            // Decoder for GreatCircleDistance
-            Decoders.addDecoder(clazz: GreatCircleDistance.self) { (source: AnyObject) -> GreatCircleDistance in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = GreatCircleDistance()
-                instance.meter = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["meter"])
-                instance.km = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["km"])
-                instance.mile = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["mile"])
-                instance.nm = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["nm"])
-                instance.feet = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["feet"])
-                return instance
-            }
-
-
-            // Decoder for [InlineResponse200]
-            Decoders.addDecoder(clazz: [InlineResponse200].self) { (source: AnyObject) -> [InlineResponse200] in
-                return Decoders.decode(clazz: [InlineResponse200].self, source: source)
-            }
-            // Decoder for InlineResponse200
-            Decoders.addDecoder(clazz: InlineResponse200.self) { (source: AnyObject) -> InlineResponse200 in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = InlineResponse200()
-                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
-                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
-                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
-                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
-                return instance
-            }
-
-
-            // Decoder for [InlineResponse2001]
-            Decoders.addDecoder(clazz: [InlineResponse2001].self) { (source: AnyObject) -> [InlineResponse2001] in
-                return Decoders.decode(clazz: [InlineResponse2001].self, source: source)
-            }
-            // Decoder for InlineResponse2001
-            Decoders.addDecoder(clazz: InlineResponse2001.self) { (source: AnyObject) -> InlineResponse2001 in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = InlineResponse2001()
-                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
-                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
-                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
-                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
-                return instance
-            }
-
-
-            // Decoder for [RealtimeFlights]
-            Decoders.addDecoder(clazz: [RealtimeFlights].self) { (source: AnyObject) -> [RealtimeFlights] in
-                return Decoders.decode(clazz: [RealtimeFlights].self, source: source)
-            }
-            // Decoder for RealtimeFlights
-            Decoders.addDecoder(clazz: RealtimeFlights.self) { (source: AnyObject) -> RealtimeFlights in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = RealtimeFlights()
+                let instance = FlightAlertUser()
                 instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
-                instance.location = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["location"])
-                instance.positionSource = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["position_source"])
-                instance.callsign = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["callsign"])
-                instance.country = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country"])
-                instance.lastContact = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["last_contact"])
-                instance.barometricAltitude = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["barometric_altitude"])
-                instance.onGround = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["on_ground"])
-                instance.speed = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["speed"])
-                instance.direction = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["direction"])
-                instance.vSpeed = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["v_speed"])
-                instance.altitude = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["altitude"])
-                instance.squawk = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["squawk"])
-                instance.specialPurpose = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["special_purpose"])
+                instance.pushToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["push_token"])
+                instance.isActive = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_active"])
+                instance.createdAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["created_at"])
+                instance.updatedAt = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["updated_at"])
                 return instance
             }
 
 
-            // Decoder for [ScheduleListAirlineType]
-            Decoders.addDecoder(clazz: [ScheduleListAirlineType].self) { (source: AnyObject) -> [ScheduleListAirlineType] in
-                return Decoders.decode(clazz: [ScheduleListAirlineType].self, source: source)
+            // Decoder for [FlightArrivalDeparture]
+            Decoders.addDecoder(clazz: [FlightArrivalDeparture].self) { (source: AnyObject) -> [FlightArrivalDeparture] in
+                return Decoders.decode(clazz: [FlightArrivalDeparture].self, source: source)
             }
-            // Decoder for ScheduleListAirlineType
-            Decoders.addDecoder(clazz: ScheduleListAirlineType.self) { (source: AnyObject) -> ScheduleListAirlineType in
+            // Decoder for FlightArrivalDeparture
+            Decoders.addDecoder(clazz: FlightArrivalDeparture.self) { (source: AnyObject) -> FlightArrivalDeparture in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = ScheduleListAirlineType()
+                let instance = FlightArrivalDeparture()
+                instance.arrival = Decoders.decodeOptional(clazz: FlightTimeRange.self, source: sourceDictionary["arrival"])
+                instance.departure = Decoders.decodeOptional(clazz: FlightTimeRange.self, source: sourceDictionary["departure"])
+                return instance
+            }
+
+
+            // Decoder for [FlightCountry]
+            Decoders.addDecoder(clazz: [FlightCountry].self) { (source: AnyObject) -> [FlightCountry] in
+                return Decoders.decode(clazz: [FlightCountry].self, source: source)
+            }
+            // Decoder for FlightCountry
+            Decoders.addDecoder(clazz: FlightCountry.self) { (source: AnyObject) -> FlightCountry in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightCountry()
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
-                instance.iataCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata_code"])
-                instance.icaoCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["icao_code"])
+                instance.code = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["code"])
+                instance.currency = Decoders.decodeOptional(clazz: FlightCurrency.self, source: sourceDictionary["currency"])
+                instance.flag = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flag"])
                 return instance
             }
 
 
-            // Decoder for [ScheduleListAirportType]
-            Decoders.addDecoder(clazz: [ScheduleListAirportType].self) { (source: AnyObject) -> [ScheduleListAirportType] in
-                return Decoders.decode(clazz: [ScheduleListAirportType].self, source: source)
+            // Decoder for [FlightCountryApp]
+            Decoders.addDecoder(clazz: [FlightCountryApp].self) { (source: AnyObject) -> [FlightCountryApp] in
+                return Decoders.decode(clazz: [FlightCountryApp].self, source: source)
             }
-            // Decoder for ScheduleListAirportType
-            Decoders.addDecoder(clazz: ScheduleListAirportType.self) { (source: AnyObject) -> ScheduleListAirportType in
+            // Decoder for FlightCountryApp
+            Decoders.addDecoder(clazz: FlightCountryApp.self) { (source: AnyObject) -> FlightCountryApp in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = ScheduleListAirportType()
-                instance.iataCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata_code"])
-                instance.icaoCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["icao_code"])
+                let instance = FlightCountryApp()
+                instance.countryName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country_name"])
+                instance.appName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["app_name"])
+                instance.deeplinkProviders = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["deeplink_providers"])
+                instance.isPopupAdsEnabled = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_popup_ads_enabled"])
+                instance.apiResponseIndex = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["api_response_index"])
+                instance.focusTab = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["focus_tab"])
+                return instance
+            }
+
+
+            // Decoder for [FlightCurrency]
+            Decoders.addDecoder(clazz: [FlightCurrency].self) { (source: AnyObject) -> [FlightCurrency] in
+                return Decoders.decode(clazz: [FlightCurrency].self, source: source)
+            }
+            // Decoder for FlightCurrency
+            Decoders.addDecoder(clazz: FlightCurrency.self) { (source: AnyObject) -> FlightCurrency in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightCurrency()
+                instance.code = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["code"])
+                instance.symbol = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["symbol"])
+                instance.thousandsSeparator = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thousands_separator"])
+                instance.decimalSeparator = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["decimal_separator"])
+                instance.symbolOnLeft = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["symbol_on_left"])
+                instance.spaceBetweenAmountAndSymbol = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["space_between_amount_and_symbol"])
+                instance.decimalDigits = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["decimal_digits"])
+                return instance
+            }
+
+
+            // Decoder for [FlightCurrencyModelType]
+            Decoders.addDecoder(clazz: [FlightCurrencyModelType].self) { (source: AnyObject) -> [FlightCurrencyModelType] in
+                return Decoders.decode(clazz: [FlightCurrencyModelType].self, source: source)
+            }
+            // Decoder for FlightCurrencyModelType
+            Decoders.addDecoder(clazz: FlightCurrencyModelType.self) { (source: AnyObject) -> FlightCurrencyModelType in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightCurrencyModelType()
+                instance.code = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["code"])
+                instance.symbol = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["symbol"])
+                instance.thousandsSeparator = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thousands_separator"])
+                instance.decimalSeparator = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["decimal_separator"])
+                instance.symbolOnLeft = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["symbol_on_left"])
+                instance.spaceBetweenAmountAndSymbol = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["space_between_amount_and_symbol"])
+                instance.decimalDigits = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["decimal_digits"])
+                return instance
+            }
+
+
+            // Decoder for [FlightExploreResponseItemLocationModel]
+            Decoders.addDecoder(clazz: [FlightExploreResponseItemLocationModel].self) { (source: AnyObject) -> [FlightExploreResponseItemLocationModel] in
+                return Decoders.decode(clazz: [FlightExploreResponseItemLocationModel].self, source: source)
+            }
+            // Decoder for FlightExploreResponseItemLocationModel
+            Decoders.addDecoder(clazz: FlightExploreResponseItemLocationModel.self) { (source: AnyObject) -> FlightExploreResponseItemLocationModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightExploreResponseItemLocationModel()
+                instance.entityId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["entityId"])
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
-                instance.city = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["city"])
-                instance.timezone = Decoders.decodeOptional(clazz: Timezone.self, source: sourceDictionary["timezone"])
+                instance.iata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["iata"])
                 return instance
             }
 
 
-            // Decoder for [ScheduleResponseModel]
-            Decoders.addDecoder(clazz: [ScheduleResponseModel].self) { (source: AnyObject) -> [ScheduleResponseModel] in
-                return Decoders.decode(clazz: [ScheduleResponseModel].self, source: source)
+            // Decoder for [FlightExploreResponseItemModel]
+            Decoders.addDecoder(clazz: [FlightExploreResponseItemModel].self) { (source: AnyObject) -> [FlightExploreResponseItemModel] in
+                return Decoders.decode(clazz: [FlightExploreResponseItemModel].self, source: source)
             }
-            // Decoder for ScheduleResponseModel
-            Decoders.addDecoder(clazz: ScheduleResponseModel.self) { (source: AnyObject) -> ScheduleResponseModel in
+            // Decoder for FlightExploreResponseItemModel
+            Decoders.addDecoder(clazz: FlightExploreResponseItemModel.self) { (source: AnyObject) -> FlightExploreResponseItemModel in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = ScheduleResponseModel()
-                instance.departureAirport = Decoders.decodeOptional(clazz: ScheduleListAirportType.self, source: sourceDictionary["departure_airport"])
-                instance.arrivalAirport = Decoders.decodeOptional(clazz: ScheduleListAirportType.self, source: sourceDictionary["arrival_airport"])
+                let instance = FlightExploreResponseItemModel()
+                instance.price = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price"])
+                instance.location = Decoders.decodeOptional(clazz: FlightExploreResponseItemLocationModel.self, source: sourceDictionary["location"])
+                instance.isDirect = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_direct"])
+                return instance
+            }
+
+
+            // Decoder for [FlightExploreResponseModel]
+            Decoders.addDecoder(clazz: [FlightExploreResponseModel].self) { (source: AnyObject) -> [FlightExploreResponseModel] in
+                return Decoders.decode(clazz: [FlightExploreResponseModel].self, source: source)
+            }
+            // Decoder for FlightExploreResponseModel
+            Decoders.addDecoder(clazz: FlightExploreResponseModel.self) { (source: AnyObject) -> FlightExploreResponseModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightExploreResponseModel()
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.currency = Decoders.decodeOptional(clazz: FlightCurrencyModelType.self, source: sourceDictionary["currency"])
+                instance.data = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["data"])
+                return instance
+            }
+
+
+            // Decoder for [FlightFlight]
+            Decoders.addDecoder(clazz: [FlightFlight].self) { (source: AnyObject) -> [FlightFlight] in
+                return Decoders.decode(clazz: [FlightFlight].self, source: source)
+            }
+            // Decoder for FlightFlight
+            Decoders.addDecoder(clazz: FlightFlight.self) { (source: AnyObject) -> FlightFlight in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightFlight()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.totalDuration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["total_duration"])
+                instance.minPrice = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["min_price"])
+                instance.maxPrice = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["max_price"])
+                instance.legs = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["legs"])
+                instance.providers = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["providers"])
+                instance.isBest = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_best"])
+                instance.isCheapest = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_cheapest"])
+                instance.isFastest = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_fastest"])
+                return instance
+            }
+
+
+            // Decoder for [FlightFlightDetailModel]
+            Decoders.addDecoder(clazz: [FlightFlightDetailModel].self) { (source: AnyObject) -> [FlightFlightDetailModel] in
+                return Decoders.decode(clazz: [FlightFlightDetailModel].self, source: source)
+            }
+            // Decoder for FlightFlightDetailModel
+            Decoders.addDecoder(clazz: FlightFlightDetailModel.self) { (source: AnyObject) -> FlightFlightDetailModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightFlightDetailModel()
+                instance.price = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price"])
+                instance.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"])
+                return instance
+            }
+
+
+            // Decoder for [FlightFlightLegModel]
+            Decoders.addDecoder(clazz: [FlightFlightLegModel].self) { (source: AnyObject) -> [FlightFlightLegModel] in
+                return Decoders.decode(clazz: [FlightFlightLegModel].self, source: source)
+            }
+            // Decoder for FlightFlightLegModel
+            Decoders.addDecoder(clazz: FlightFlightLegModel.self) { (source: AnyObject) -> FlightFlightLegModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightFlightLegModel()
+                instance.origin = Decoders.decodeOptional(clazz: FlightAirportModel.self, source: sourceDictionary["origin"])
+                instance.destination = Decoders.decodeOptional(clazz: FlightAirportModel.self, source: sourceDictionary["destination"])
+                instance.airline = Decoders.decodeOptional(clazz: FlightAirlineModel.self, source: sourceDictionary["airline"])
+                instance.departure = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["departure"])
+                instance.direct = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["direct"])
+                return instance
+            }
+
+
+            // Decoder for [FlightFlightSearchRequestBodyModel]
+            Decoders.addDecoder(clazz: [FlightFlightSearchRequestBodyModel].self) { (source: AnyObject) -> [FlightFlightSearchRequestBodyModel] in
+                return Decoders.decode(clazz: [FlightFlightSearchRequestBodyModel].self, source: source)
+            }
+            // Decoder for FlightFlightSearchRequestBodyModel
+            Decoders.addDecoder(clazz: FlightFlightSearchRequestBodyModel.self) { (source: AnyObject) -> FlightFlightSearchRequestBodyModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightFlightSearchRequestBodyModel()
+                instance.legs = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["legs"])
+                instance.cabinClass = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["cabin_class"])
+                instance.adults = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["adults"])
+                instance.childrenAges = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["children_ages"])
+                return instance
+            }
+
+
+            // Decoder for [FlightFlightSearchResponseModel]
+            Decoders.addDecoder(clazz: [FlightFlightSearchResponseModel].self) { (source: AnyObject) -> [FlightFlightSearchResponseModel] in
+                return Decoders.decode(clazz: [FlightFlightSearchResponseModel].self, source: source)
+            }
+            // Decoder for FlightFlightSearchResponseModel
+            Decoders.addDecoder(clazz: FlightFlightSearchResponseModel.self) { (source: AnyObject) -> FlightFlightSearchResponseModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightFlightSearchResponseModel()
+                instance.searchId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["search_id"])
+                instance.language = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["language"])
+                instance.currency = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["currency"])
+                instance.mode = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["mode"])
+                instance.currencyInfo = Decoders.decodeOptional(clazz: FlightCurrencyModelType.self, source: sourceDictionary["currency_info"])
+                return instance
+            }
+
+
+            // Decoder for [FlightInlineResponse200]
+            Decoders.addDecoder(clazz: [FlightInlineResponse200].self) { (source: AnyObject) -> [FlightInlineResponse200] in
+                return Decoders.decode(clazz: [FlightInlineResponse200].self, source: source)
+            }
+            // Decoder for FlightInlineResponse200
+            Decoders.addDecoder(clazz: FlightInlineResponse200.self) { (source: AnyObject) -> FlightInlineResponse200 in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightInlineResponse200()
+                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
+                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
+                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
                 instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
                 return instance
             }
 
 
-            // Decoder for [ScheduleResultModel]
-            Decoders.addDecoder(clazz: [ScheduleResultModel].self) { (source: AnyObject) -> [ScheduleResultModel] in
-                return Decoders.decode(clazz: [ScheduleResultModel].self, source: source)
+            // Decoder for [FlightInlineResponse2001]
+            Decoders.addDecoder(clazz: [FlightInlineResponse2001].self) { (source: AnyObject) -> [FlightInlineResponse2001] in
+                return Decoders.decode(clazz: [FlightInlineResponse2001].self, source: source)
             }
-            // Decoder for ScheduleResultModel
-            Decoders.addDecoder(clazz: ScheduleResultModel.self) { (source: AnyObject) -> ScheduleResultModel in
+            // Decoder for FlightInlineResponse2001
+            Decoders.addDecoder(clazz: FlightInlineResponse2001.self) { (source: AnyObject) -> FlightInlineResponse2001 in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = ScheduleResultModel()
-                instance.airline = Decoders.decodeOptional(clazz: ScheduleListAirlineType.self, source: sourceDictionary["airline"])
-                instance.flightNumber = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flight_number"])
-                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
-                instance.operatedBy = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["operated_by"])
-                instance.departureTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_time"])
-                instance.arrivalTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_time"])
-                instance.airport = Decoders.decodeOptional(clazz: ScheduleListAirportType.self, source: sourceDictionary["airport"])
+                let instance = FlightInlineResponse2001()
+                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
+                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
+                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
+                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
                 return instance
             }
 
 
-            // Decoder for [Timezone]
-            Decoders.addDecoder(clazz: [Timezone].self) { (source: AnyObject) -> [Timezone] in
-                return Decoders.decode(clazz: [Timezone].self, source: source)
+            // Decoder for [FlightInlineResponse2002]
+            Decoders.addDecoder(clazz: [FlightInlineResponse2002].self) { (source: AnyObject) -> [FlightInlineResponse2002] in
+                return Decoders.decode(clazz: [FlightInlineResponse2002].self, source: source)
             }
-            // Decoder for Timezone
-            Decoders.addDecoder(clazz: Timezone.self) { (source: AnyObject) -> Timezone in
+            // Decoder for FlightInlineResponse2002
+            Decoders.addDecoder(clazz: FlightInlineResponse2002.self) { (source: AnyObject) -> FlightInlineResponse2002 in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = Timezone()
-                instance.timezone = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["timezone"])
-                instance.countryCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["country_code"])
-                instance.gmt = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["gmt"])
-                instance.dst = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["dst"])
+                let instance = FlightInlineResponse2002()
+                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
+                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
+                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
+                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
                 return instance
             }
 
 
-            // Decoder for [User]
-            Decoders.addDecoder(clazz: [User].self) { (source: AnyObject) -> [User] in
-                return Decoders.decode(clazz: [User].self, source: source)
+            // Decoder for [FlightLeg]
+            Decoders.addDecoder(clazz: [FlightLeg].self) { (source: AnyObject) -> [FlightLeg] in
+                return Decoders.decode(clazz: [FlightLeg].self, source: source)
             }
-            // Decoder for User
-            Decoders.addDecoder(clazz: User.self) { (source: AnyObject) -> User in
+            // Decoder for FlightLeg
+            Decoders.addDecoder(clazz: FlightLeg.self) { (source: AnyObject) -> FlightLeg in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = User()
-                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["user_id"])
-                instance.pushToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["push_token"])
-                instance.transactionId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["transaction_id"])
-                instance.os = User.Os(rawValue: (sourceDictionary["os"] as? String) ?? "") 
-                instance.alert = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["alert"])
-                instance.remainder = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["remainder"])
-                instance.isPremium = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["is_premium"])
-                instance.trackCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["track_count"])
-                instance.detailsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["details_count"])
+                let instance = FlightLeg()
+                instance.arriveTimeAirport = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["arriveTimeAirport"])
+                instance.departureTimeAirport = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["departureTimeAirport"])
+                instance.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"])
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.originCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["originCode"])
+                instance.destination = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destination"])
+                instance.destinationCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destinationCode"])
+                instance.stopCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["stopCount"])
+                instance.segments = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["segments"])
+                return instance
+            }
+
+
+            // Decoder for [FlightLegType]
+            Decoders.addDecoder(clazz: [FlightLegType].self) { (source: AnyObject) -> [FlightLegType] in
+                return Decoders.decode(clazz: [FlightLegType].self, source: source)
+            }
+            // Decoder for FlightLegType
+            Decoders.addDecoder(clazz: FlightLegType.self) { (source: AnyObject) -> FlightLegType in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightLegType()
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.destination = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destination"])
+                instance.date = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["date"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPollRequestBodyModel]
+            Decoders.addDecoder(clazz: [FlightPollRequestBodyModel].self) { (source: AnyObject) -> [FlightPollRequestBodyModel] in
+                return Decoders.decode(clazz: [FlightPollRequestBodyModel].self, source: source)
+            }
+            // Decoder for FlightPollRequestBodyModel
+            Decoders.addDecoder(clazz: FlightPollRequestBodyModel.self) { (source: AnyObject) -> FlightPollRequestBodyModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPollRequestBodyModel()
+                instance.durationMax = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration_max"])
+                instance.stopCountMax = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["stop_count_max"])
+                instance.arrivalDepartureRanges = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["arrival_departure_ranges"])
+                instance.iataCodesExclude = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["iata_codes_exclude"])
+                instance.iataCodesInclude = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["iata_codes_include"])
+                instance.sortBy = FlightPollRequestBodyModel.FlightSortBy(rawValue: (sourceDictionary["sort_by"] as? String) ?? "") 
+                instance.sortOrder = FlightPollRequestBodyModel.FlightSortOrder(rawValue: (sourceDictionary["sort_order"] as? String) ?? "") 
+                instance.agencyExclude = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["agency_exclude"])
+                instance.agencyInclude = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["agency_include"])
+                instance.priceMin = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price_min"])
+                instance.priceMax = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price_max"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPollResponseBodyModel]
+            Decoders.addDecoder(clazz: [FlightPollResponseBodyModel].self) { (source: AnyObject) -> [FlightPollResponseBodyModel] in
+                return Decoders.decode(clazz: [FlightPollResponseBodyModel].self, source: source)
+            }
+            // Decoder for FlightPollResponseBodyModel
+            Decoders.addDecoder(clazz: FlightPollResponseBodyModel.self) { (source: AnyObject) -> FlightPollResponseBodyModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPollResponseBodyModel()
+                instance.count = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["count"])
+                instance.next = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["next"])
+                instance.previous = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["previous"])
+                instance.cache = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["cache"])
+                instance.passengerCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["passenger_count"])
+                instance.airlines = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["airlines"])
+                instance.minDuration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["min_duration"])
+                instance.maxDuration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["max_duration"])
+                instance.agencies = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["agencies"])
+                instance.cheapestFlight = Decoders.decodeOptional(clazz: FlightFlightDetailModel.self, source: sourceDictionary["cheapest_flight"])
+                instance.bestFlight = Decoders.decodeOptional(clazz: FlightFlightDetailModel.self, source: sourceDictionary["best_flight"])
+                instance.fastestFlight = Decoders.decodeOptional(clazz: FlightFlightDetailModel.self, source: sourceDictionary["fastest_flight"])
+                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPriceInsightQuoteModel]
+            Decoders.addDecoder(clazz: [FlightPriceInsightQuoteModel].self) { (source: AnyObject) -> [FlightPriceInsightQuoteModel] in
+                return Decoders.decode(clazz: [FlightPriceInsightQuoteModel].self, source: source)
+            }
+            // Decoder for FlightPriceInsightQuoteModel
+            Decoders.addDecoder(clazz: FlightPriceInsightQuoteModel.self) { (source: AnyObject) -> FlightPriceInsightQuoteModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPriceInsightQuoteModel()
+                instance.date = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["date"])
+                instance.price = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price"])
+                instance.currency = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["currency"])
+                instance.outbound = Decoders.decodeOptional(clazz: FlightFlightLegModel.self, source: sourceDictionary["outbound"])
+                instance.inbound = Decoders.decodeOptional(clazz: FlightFlightLegModel.self, source: sourceDictionary["inbound"])
+                instance.priceCategory = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["price_category"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPriceInsightRequestCustomDrf]
+            Decoders.addDecoder(clazz: [FlightPriceInsightRequestCustomDrf].self) { (source: AnyObject) -> [FlightPriceInsightRequestCustomDrf] in
+                return Decoders.decode(clazz: [FlightPriceInsightRequestCustomDrf].self, source: source)
+            }
+            // Decoder for FlightPriceInsightRequestCustomDrf
+            Decoders.addDecoder(clazz: FlightPriceInsightRequestCustomDrf.self) { (source: AnyObject) -> FlightPriceInsightRequestCustomDrf in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPriceInsightRequestCustomDrf()
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.destination = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destination"])
+                instance.departure = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure"])
+                instance.roundTrip = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["round_trip"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPriceInsightResponseModel]
+            Decoders.addDecoder(clazz: [FlightPriceInsightResponseModel].self) { (source: AnyObject) -> [FlightPriceInsightResponseModel] in
+                return Decoders.decode(clazz: [FlightPriceInsightResponseModel].self, source: source)
+            }
+            // Decoder for FlightPriceInsightResponseModel
+            Decoders.addDecoder(clazz: FlightPriceInsightResponseModel.self) { (source: AnyObject) -> FlightPriceInsightResponseModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPriceInsightResponseModel()
+                instance.priceStats = Decoders.decodeOptional(clazz: FlightPriceStatsModel.self, source: sourceDictionary["price_stats"])
+                instance.results = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["results"])
+                instance.currencyInfo = Decoders.decodeOptional(clazz: FlightCurrencyModelType.self, source: sourceDictionary["currency_info"])
+                return instance
+            }
+
+
+            // Decoder for [FlightPriceStatsModel]
+            Decoders.addDecoder(clazz: [FlightPriceStatsModel].self) { (source: AnyObject) -> [FlightPriceStatsModel] in
+                return Decoders.decode(clazz: [FlightPriceStatsModel].self, source: source)
+            }
+            // Decoder for FlightPriceStatsModel
+            Decoders.addDecoder(clazz: FlightPriceStatsModel.self) { (source: AnyObject) -> FlightPriceStatsModel in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightPriceStatsModel()
+                instance.mean = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["mean"])
+                instance.stdDev = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["std_dev"])
+                instance.lowerThreshold = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["lower_threshold"])
+                instance.upperThreshold = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["upper_threshold"])
+                return instance
+            }
+
+
+            // Decoder for [FlightProviderFilterData]
+            Decoders.addDecoder(clazz: [FlightProviderFilterData].self) { (source: AnyObject) -> [FlightProviderFilterData] in
+                return Decoders.decode(clazz: [FlightProviderFilterData].self, source: source)
+            }
+            // Decoder for FlightProviderFilterData
+            Decoders.addDecoder(clazz: FlightProviderFilterData.self) { (source: AnyObject) -> FlightProviderFilterData in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightProviderFilterData()
+                instance.code = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["code"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.image = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["image"])
+                return instance
+            }
+
+
+            // Decoder for [FlightProviderType]
+            Decoders.addDecoder(clazz: [FlightProviderType].self) { (source: AnyObject) -> [FlightProviderType] in
+                return Decoders.decode(clazz: [FlightProviderType].self, source: source)
+            }
+            // Decoder for FlightProviderType
+            Decoders.addDecoder(clazz: FlightProviderType.self) { (source: AnyObject) -> FlightProviderType in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightProviderType()
+                instance.isSplit = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isSplit"])
+                instance.transferType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["transferType"])
+                instance.price = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price"])
+                instance.splitProviders = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["splitProviders"])
+                return instance
+            }
+
+
+            // Decoder for [FlightSegment]
+            Decoders.addDecoder(clazz: [FlightSegment].self) { (source: AnyObject) -> [FlightSegment] in
+                return Decoders.decode(clazz: [FlightSegment].self, source: source)
+            }
+            // Decoder for FlightSegment
+            Decoders.addDecoder(clazz: FlightSegment.self) { (source: AnyObject) -> FlightSegment in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightSegment()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.arriveTimeAirport = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["arriveTimeAirport"])
+                instance.departureTimeAirport = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["departureTimeAirport"])
+                instance.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"])
+                instance.flightNumber = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["flightNumber"])
+                instance.airlineName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineName"])
+                instance.airlineIata = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineIata"])
+                instance.airlineLogo = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["airlineLogo"])
+                instance.originCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["originCode"])
+                instance.origin = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["origin"])
+                instance.destinationCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destinationCode"])
+                instance.destination = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["destination"])
+                instance.arrivalDayDifference = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["arrival_day_difference"])
+                instance.wifi = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["wifi"])
+                instance.cabinClass = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["cabinClass"])
+                instance.aircraft = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["aircraft"])
+                return instance
+            }
+
+
+            // Decoder for [FlightSplitProvider]
+            Decoders.addDecoder(clazz: [FlightSplitProvider].self) { (source: AnyObject) -> [FlightSplitProvider] in
+                return Decoders.decode(clazz: [FlightSplitProvider].self, source: source)
+            }
+            // Decoder for FlightSplitProvider
+            Decoders.addDecoder(clazz: FlightSplitProvider.self) { (source: AnyObject) -> FlightSplitProvider in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightSplitProvider()
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.imageURL = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["imageURL"])
+                instance.price = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["price"])
+                instance.deeplink = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["deeplink"])
+                instance.rating = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["rating"])
+                instance.ratingCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["ratingCount"])
+                instance.fareFamily = Decoders.decodeOptional(clazz: Dictionary.self, source: sourceDictionary["fareFamily"])
+                return instance
+            }
+
+
+            // Decoder for [FlightTimeRange]
+            Decoders.addDecoder(clazz: [FlightTimeRange].self) { (source: AnyObject) -> [FlightTimeRange] in
+                return Decoders.decode(clazz: [FlightTimeRange].self, source: source)
+            }
+            // Decoder for FlightTimeRange
+            Decoders.addDecoder(clazz: FlightTimeRange.self) { (source: AnyObject) -> FlightTimeRange in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FlightTimeRange()
+                instance.min = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["min"])
+                instance.max = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["max"])
                 return instance
             }
         }

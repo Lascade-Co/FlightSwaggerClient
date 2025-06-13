@@ -7,7 +7,7 @@
 import Foundation
 
 public class FlightSwaggerClientAPI {
-    public static var basePath = "https://staging.flight.lascade.com/api"
+    public static var basePath = "https://staging.plane.lascade.com"
     public static var credential: NSURLCredential?
     public static var customHeaders: [String:String] = [:]  
     static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
