@@ -8,7 +8,7 @@
 import Foundation
 
 
-/** Currency details */
+/** Currency information for formatting prices */
 public class FlightCurrencyModelType: JSONEncodable {
     /** Currency code */
     public var code: String?

@@ -9,20 +9,17 @@ import Foundation
 
 
 public class FlightExploreResponseModel: JSONEncodable {
-    /** Origin airport IATA code */
-    public var origin: String?
-    public var currency: FlightCurrencyModelType?
-    /** List of countries */
-    public var data: [FlightExploreResponseItemModel]?
+    public var origin: FlightOriginResponseModel?
+    /** Countries with their destinations */
+    public var countries: [FlightCountryResponseModel]?
 
     public init() {}
 
     // MARK: JSONEncodable
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["origin"] = self.origin
-        nillableDictionary["currency"] = self.currency?.encodeToJSON()
-        nillableDictionary["data"] = self.data?.encodeToJSON()
+        nillableDictionary["origin"] = self.origin?.encodeToJSON()
+        nillableDictionary["countries"] = self.countries?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

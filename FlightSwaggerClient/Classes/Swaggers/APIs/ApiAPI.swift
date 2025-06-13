@@ -12,191 +12,49 @@ import Alamofire
 public class ApiAPI: APIBase {
     /**
 
-     - parameter data: (body)  
+     - parameter country: (query) Country code to filter results 
+     - parameter search: (query) Search term for autocomplete 
+     - parameter language: (query) Preferred language for results 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func apiAlertsCreate(data data: FlightAlert, completion: ((data: FlightAlert?, error: ErrorType?) -> Void)) {
-        apiAlertsCreateWithRequestBuilder(data: data).execute { (response, error) -> Void in
+    public class func apiAutocompleteList(country country: String, search: String, language: String, completion: ((data: FlightAutocompleteResponseBodyModel?, error: ErrorType?) -> Void)) {
+        apiAutocompleteListWithRequestBuilder(country: country, search: search, language: language).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - POST /api/alerts/
-     - 
-     - BASIC:
-       - type: basic
-       - name: Basic
-     - examples: [{contentType=application/json, example={"empty": false}}]
-     
-     - parameter data: (body)  
-
-     - returns: RequestBuilder<FlightAlert> 
-     */
-    public class func apiAlertsCreateWithRequestBuilder(data data: FlightAlert) -> RequestBuilder<FlightAlert> {
-        let path = "/api/alerts/"
-        let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
-    }
-
-    /**
-
-     - parameter id: (path) A UUID string identifying this alert. 
-     - parameter data: (body)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func apiAlertsPartialUpdate(id id: NSUUID, data: FlightAlert, completion: ((data: FlightAlert?, error: ErrorType?) -> Void)) {
-        apiAlertsPartialUpdateWithRequestBuilder(id: id, data: data).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - PATCH /api/alerts/{id}/
-     - 
-     - BASIC:
-       - type: basic
-       - name: Basic
-     - examples: [{contentType=application/json, example={"empty": false}}]
-     
-     - parameter id: (path) A UUID string identifying this alert. 
-     - parameter data: (body)  
-
-     - returns: RequestBuilder<FlightAlert> 
-     */
-    public class func apiAlertsPartialUpdateWithRequestBuilder(id id: NSUUID, data: FlightAlert) -> RequestBuilder<FlightAlert> {
-        var path = "/api/alerts/{id}/"
-        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
-        let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "PATCH", URLString: URLString, parameters: convertedParameters, isBody: true)
-    }
-
-    /**
-
-     - parameter id: (path) A UUID string identifying this alert. 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func apiAlertsRead(id id: NSUUID, completion: ((data: FlightAlert?, error: ErrorType?) -> Void)) {
-        apiAlertsReadWithRequestBuilder(id: id).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - GET /api/alerts/{id}/
-     - 
-     - BASIC:
-       - type: basic
-       - name: Basic
-     - examples: [{contentType=application/json, example={"empty": false}}]
-     
-     - parameter id: (path) A UUID string identifying this alert. 
-
-     - returns: RequestBuilder<FlightAlert> 
-     */
-    public class func apiAlertsReadWithRequestBuilder(id id: NSUUID) -> RequestBuilder<FlightAlert> {
-        var path = "/api/alerts/{id}/"
-        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
-        let URLString = FlightSwaggerClientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [:]
- 
-        let parameters = APIHelper.rejectNil(nillableParameters)
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
-    }
-
-    /**
-
-     - parameter id: (path) A UUID string identifying this alert. 
-     - parameter data: (body)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func apiAlertsUpdate(id id: NSUUID, data: FlightAlert, completion: ((data: FlightAlert?, error: ErrorType?) -> Void)) {
-        apiAlertsUpdateWithRequestBuilder(id: id, data: data).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - PUT /api/alerts/{id}/
-     - 
-     - BASIC:
-       - type: basic
-       - name: Basic
-     - examples: [{contentType=application/json, example={"empty": false}}]
-     
-     - parameter id: (path) A UUID string identifying this alert. 
-     - parameter data: (body)  
-
-     - returns: RequestBuilder<FlightAlert> 
-     */
-    public class func apiAlertsUpdateWithRequestBuilder(id id: NSUUID, data: FlightAlert) -> RequestBuilder<FlightAlert> {
-        var path = "/api/alerts/{id}/"
-        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
-        let URLString = FlightSwaggerClientAPI.basePath + path
-        let parameters = data.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: true)
-    }
-
-    /**
-
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func apiAutocompleteList(completion: ((error: ErrorType?) -> Void)) {
-        apiAutocompleteListWithRequestBuilder().execute { (response, error) -> Void in
-            completion(error: error);
         }
     }
 
 
     /**
      - GET /api/autocomplete/
-     - API endpoint for autocomplete search.
+     - Fetch autocomplete locations based on country and search query.
      - BASIC:
        - type: basic
        - name: Basic
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     
+     - parameter country: (query) Country code to filter results 
+     - parameter search: (query) Search term for autocomplete 
+     - parameter language: (query) Preferred language for results 
 
-     - returns: RequestBuilder<Void> 
+     - returns: RequestBuilder<FlightAutocompleteResponseBodyModel> 
      */
-    public class func apiAutocompleteListWithRequestBuilder() -> RequestBuilder<Void> {
+    public class func apiAutocompleteListWithRequestBuilder(country country: String, search: String, language: String) -> RequestBuilder<FlightAutocompleteResponseBodyModel> {
         let path = "/api/autocomplete/"
         let URLString = FlightSwaggerClientAPI.basePath + path
 
-        let nillableParameters: [String:AnyObject?] = [:]
+        let nillableParameters: [String:AnyObject?] = [
+            "country": country,
+            "search": search,
+            "language": language
+        ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Void>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<FlightAutocompleteResponseBodyModel>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
