@@ -13,6 +13,163 @@ import Alamofire
 open class ApiAPI {
     /**
 
+     - parameter data: (body)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAlertsCreate(data: FlightAlert, completion: @escaping ((_ data: FlightAlert?,_ error: Error?) -> Void)) {
+        apiAlertsCreateWithRequestBuilder(data: data).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - POST /api/alerts/
+     - 
+     - BASIC:
+       - type: basic
+       - name: Basic
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     
+     - parameter data: (body)  
+
+     - returns: RequestBuilder<FlightAlert> 
+     */
+    open class func apiAlertsCreateWithRequestBuilder(data: FlightAlert) -> RequestBuilder<FlightAlert> {
+        let path = "/api/alerts/"
+        let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
+     - parameter _id: (path) A UUID string identifying this alert. 
+     - parameter data: (body)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAlertsPartialUpdate(_id: UUID, data: FlightAlert, completion: @escaping ((_ data: FlightAlert?,_ error: Error?) -> Void)) {
+        apiAlertsPartialUpdateWithRequestBuilder(_id: _id, data: data).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PATCH /api/alerts/{id}/
+     - 
+     - BASIC:
+       - type: basic
+       - name: Basic
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     
+     - parameter _id: (path) A UUID string identifying this alert. 
+     - parameter data: (body)  
+
+     - returns: RequestBuilder<FlightAlert> 
+     */
+    open class func apiAlertsPartialUpdateWithRequestBuilder(_id: UUID, data: FlightAlert) -> RequestBuilder<FlightAlert> {
+        var path = "/api/alerts/{id}/"
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
+        let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PATCH", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
+     - parameter _id: (path) A UUID string identifying this alert. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAlertsRead(_id: UUID, completion: @escaping ((_ data: FlightAlert?,_ error: Error?) -> Void)) {
+        apiAlertsReadWithRequestBuilder(_id: _id).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - GET /api/alerts/{id}/
+     - 
+     - BASIC:
+       - type: basic
+       - name: Basic
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     
+     - parameter _id: (path) A UUID string identifying this alert. 
+
+     - returns: RequestBuilder<FlightAlert> 
+     */
+    open class func apiAlertsReadWithRequestBuilder(_id: UUID) -> RequestBuilder<FlightAlert> {
+        var path = "/api/alerts/{id}/"
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
+        let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+
+     - parameter _id: (path) A UUID string identifying this alert. 
+     - parameter data: (body)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAlertsUpdate(_id: UUID, data: FlightAlert, completion: @escaping ((_ data: FlightAlert?,_ error: Error?) -> Void)) {
+        apiAlertsUpdateWithRequestBuilder(_id: _id, data: data).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PUT /api/alerts/{id}/
+     - 
+     - BASIC:
+       - type: basic
+       - name: Basic
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     
+     - parameter _id: (path) A UUID string identifying this alert. 
+     - parameter data: (body)  
+
+     - returns: RequestBuilder<FlightAlert> 
+     */
+    open class func apiAlertsUpdateWithRequestBuilder(_id: UUID, data: FlightAlert) -> RequestBuilder<FlightAlert> {
+        var path = "/api/alerts/{id}/"
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
+        let URLString = FlightSwaggerClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<FlightAlert>.Type = FlightSwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
      - parameter country: (query) Country code to filter results 
      - parameter search: (query) Search term for autocomplete 
      - parameter language: (query) Preferred language for results 

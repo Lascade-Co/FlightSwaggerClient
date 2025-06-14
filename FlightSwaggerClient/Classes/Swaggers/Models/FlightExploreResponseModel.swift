@@ -11,13 +11,16 @@ import Foundation
 
 public struct FlightExploreResponseModel: Codable {
 
-    public var origin: FlightOriginResponseModel
-    /** Countries with their destinations */
-    public var countries: [FlightCountryResponseModel]
+    /** Origin airport IATA code */
+    public var origin: String
+    public var currency: FlightCurrencyModelType
+    /** List of countries */
+    public var data: [FlightExploreResponseItemModel]
 
-    public init(origin: FlightOriginResponseModel, countries: [FlightCountryResponseModel]) {
+    public init(origin: String, currency: FlightCurrencyModelType, data: [FlightExploreResponseItemModel]) {
         self.origin = origin
-        self.countries = countries
+        self.currency = currency
+        self.data = data
     }
 
 

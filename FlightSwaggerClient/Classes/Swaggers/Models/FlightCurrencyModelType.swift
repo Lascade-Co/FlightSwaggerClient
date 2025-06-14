@@ -8,7 +8,7 @@
 import Foundation
 
 
-/** Currency information for formatting prices */
+/** Currency details */
 
 public struct FlightCurrencyModelType: Codable {
 
