@@ -15,19 +15,18 @@ public struct FlightFlight: Codable {
     public var totalDuration: Int
     public var minPrice: Double
     public var maxPrice: Double
-//    public var legs: [FlightLeg]
+    public var legs: [FlightLeg]
 //    public var providers: [FlightProviderType]
     public var isBest: Bool?
     public var isCheapest: Bool?
     public var isFastest: Bool?
 
-    public init(_id: String, totalDuration: Int, minPrice: Double, maxPrice: Double, isBest: Bool?, isCheapest: Bool?, isFastest: Bool?) {
+    public init(_id: String, totalDuration: Int, minPrice: Double, maxPrice: Double, legs: [FlightLeg],  isBest: Bool?, isCheapest: Bool?, isFastest: Bool?) {
         self._id = _id
         self.totalDuration = totalDuration
         self.minPrice = minPrice
         self.maxPrice = maxPrice
-//        self.legs = legs
-//        self.providers = providers
+        self.legs = legs
         self.isBest = isBest
         self.isCheapest = isCheapest
         self.isFastest = isFastest
@@ -38,6 +37,7 @@ public struct FlightFlight: Codable {
         case totalDuration = "total_duration"
         case minPrice = "min_price"
         case maxPrice = "max_price"
+        case legs
         case isBest = "is_best"
         case isCheapest = "is_cheapest"
         case isFastest = "is_fastest"
