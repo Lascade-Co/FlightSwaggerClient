@@ -17,16 +17,16 @@ public struct FlightSplitProvider: Codable {
     public var deeplink: String
     public var rating: Double?
     public var ratingCount: Int?
-    public var fareFamily: [String:String]?
+//    public var fareFamily: [String:String]?
 
-    public init(name: String, imageURL: String, price: Double, deeplink: String, rating: Double?, ratingCount: Int?, fareFamily: [String:String]?) {
+    public init(name: String, imageURL: String, price: Double, deeplink: String, rating: Double?, ratingCount: Int?) {
         self.name = name
         self.imageURL = imageURL
         self.price = price
         self.deeplink = deeplink
         self.rating = rating
         self.ratingCount = ratingCount
-        self.fareFamily = fareFamily
+//        self.fareFamily = fareFamily
     }
 
 
